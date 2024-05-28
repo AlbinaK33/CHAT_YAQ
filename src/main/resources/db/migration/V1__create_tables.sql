@@ -7,15 +7,14 @@ CREATE TABLE users (
                        email VARCHAR(50) UNIQUE NOT NULL CHECK (email ~ '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'),
                        phone VARCHAR(15) UNIQUE,
                        city VARCHAR(30) NOT NULL,
-                       state VARCHAR(50) NOT NULL,
                        country VARCHAR(30) NOT NULL,
                        registration_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                        last_login_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                        avatar BYTEA,
                        blocked BOOLEAN NOT NULL,
-                       about_me VARCHAR(100) NOT NULL,
+                       about_me VARCHAR(100),
                        social_networks VARCHAR(15),
-                       timezone VARCHAR(50) NOT NULL,
+                       timezone TIMESTAMP WITH TIME ZONE,
                        language VARCHAR(3) NOT NULL
 );
 
@@ -57,10 +56,13 @@ CREATE TABLE list_chat (
                            id SERIAL PRIMARY KEY,
                            chat_name VARCHAR(100) NOT NULL,
                            created_user_id BIGINT NOT NULL,
-                           created_at TIMESTAMP NOT NULL,
-                           delete_at TIMESTAMP,
+                           created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                           delete_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                            status BOOLEAN NOT NULL,
-                           FOREIGN KEY (created_user_id) REFERENCES users(id)
+                           user_id BIGINT NOT NULL,
+                           FOREIGN KEY (created_user_id) REFERENCES users(id),
+                           FOREIGN KEY (user_id) REFERENCES users(id)
+
 );
 
 CREATE TABLE participants (
@@ -78,13 +80,13 @@ CREATE TABLE chat (
                       list_id BIGINT NOT NULL,
                       user_id BIGINT NOT NULL,
                       content TEXT NOT NULL,
-                      timestamp TIMESTAMP NOT NULL,
+                      timestamp TIMESTAMP WITH TIME ZONE,
                       is_edited BOOLEAN NOT NULL,
-                      edited_at TIMESTAMP,
+                      edited_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                       attachments TEXT,
                       pinned BOOLEAN NOT NULL,
                       is_read BOOLEAN NOT NULL,
-                      read_at TIMESTAMP,
+                      read_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                       FOREIGN KEY (list_id) REFERENCES list_chat(id),
                       FOREIGN KEY (user_id) REFERENCES users(id)
 );
