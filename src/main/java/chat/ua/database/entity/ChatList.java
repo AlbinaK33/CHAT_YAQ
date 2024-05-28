@@ -15,7 +15,7 @@ public class ChatList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "chat_name", nullable = false)
+    @Column(name = "chat_name", nullable = false, length = 50)
     private String chatName;
 
     @ManyToOne
@@ -25,7 +25,7 @@ public class ChatList {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "delete_at")
+    @Column(name = "delete_at", nullable = false, updatable = false)
     private LocalDateTime deleteAt;
 
     @Column(name = "status", nullable = false)
@@ -35,10 +35,10 @@ public class ChatList {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
     
-    @OneToMany(mappedBy = "chat_list", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "chatList", cascade = CascadeType.ALL)
     private Set<Participants> participants = new HashSet<>();
 
-    @OneToMany(mappedBy = "chat_list", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "list", cascade = CascadeType.ALL)
     private Set<Chat> chats = new HashSet<>();
 
 }

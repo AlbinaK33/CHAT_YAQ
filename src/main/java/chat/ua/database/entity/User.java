@@ -45,24 +45,21 @@ public class User {
     @Column(nullable = false, length = 30)
     private String city;
 
-    @Column(nullable = false, length = 50)
-    private String state;
-
     @Column(nullable = false, length = 30)
     private String country;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "registration_date", nullable = false)
+    @Column(name = "registration_date", nullable = false, updatable = false)
     private LocalDateTime registrationDate;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "last_login_date", nullable = false)
+    @Column(name = "last_login_date", nullable = false, updatable = false)
     private LocalDateTime lastLoginDate;
 
     @Column
-    private byte avatar;
+    private byte[] avatar;
 
     @Column
     private boolean isBlocked;
@@ -90,7 +87,7 @@ public class User {
 
     @ManyToMany
     @JoinTable(
-            name = "role_permissions",
+            name = "user_role_permissions",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id")
     )
