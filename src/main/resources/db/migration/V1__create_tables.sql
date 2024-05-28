@@ -15,6 +15,7 @@ CREATE TABLE users (
                        blocked BOOLEAN NOT NULL,
                        about_me VARCHAR(100) NOT NULL,
                        social_networks VARCHAR(15),
+                       timezone VARCHAR(50) NOT NULL,
                        language VARCHAR(3) NOT NULL
 );
 
@@ -42,5 +43,49 @@ CREATE TABLE user_role_permissions (
                                        PRIMARY KEY (user_id, permission_id),
                                        FOREIGN KEY (user_id) REFERENCES users(id),
                                        FOREIGN KEY (permission_id) REFERENCES role_permissions(id)
+);
+
+
+
+CREATE TABLE room (
+                      id SERIAL PRIMARY KEY,
+                      room_name VARCHAR(100) NOT NULL,
+                      description TEXT
+);
+
+CREATE TABLE list_chat (
+                           id SERIAL PRIMARY KEY,
+                           chat_name VARCHAR(100) NOT NULL,
+                           created_user_id BIGINT NOT NULL,
+                           created_at TIMESTAMP NOT NULL,
+                           delete_at TIMESTAMP,
+                           status BOOLEAN NOT NULL,
+                           FOREIGN KEY (created_user_id) REFERENCES users(id)
+);
+
+CREATE TABLE participants (
+                              id SERIAL PRIMARY KEY,
+                              room_id BIGINT NOT NULL,
+                              user_id BIGINT NOT NULL,
+                              chat_list_id BIGINT NOT NULL,
+                              FOREIGN KEY (room_id) REFERENCES room(id),
+                              FOREIGN KEY (user_id) REFERENCES users(id),
+                              FOREIGN KEY (chat_list_id) REFERENCES list_chat(id)
+);
+
+CREATE TABLE chat (
+                      id SERIAL PRIMARY KEY,
+                      list_id BIGINT NOT NULL,
+                      user_id BIGINT NOT NULL,
+                      content TEXT NOT NULL,
+                      timestamp TIMESTAMP NOT NULL,
+                      is_edited BOOLEAN NOT NULL,
+                      edited_at TIMESTAMP,
+                      attachments TEXT,
+                      pinned BOOLEAN NOT NULL,
+                      is_read BOOLEAN NOT NULL,
+                      read_at TIMESTAMP,
+                      FOREIGN KEY (list_id) REFERENCES list_chat(id),
+                      FOREIGN KEY (user_id) REFERENCES users(id)
 );
 

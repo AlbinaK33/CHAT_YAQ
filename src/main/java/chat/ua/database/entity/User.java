@@ -62,7 +62,7 @@ public class User {
     private LocalDateTime lastLoginDate;
 
     @Column
-    private byte avatar;
+    private byte[] avatar;
 
     @Column
     private boolean isBlocked;
@@ -90,7 +90,7 @@ public class User {
 
     @ManyToMany
     @JoinTable(
-            name = "role_permissions",
+            name = "user_role_permissions",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id")
     )

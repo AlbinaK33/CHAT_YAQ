@@ -23,6 +23,6 @@ public class Participants implements Serializable {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "chatList_id", nullable = false)
+    @JoinColumn(name = "chat_list_id", nullable = false)
     private ChatList chatList;
 }

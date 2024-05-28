@@ -23,19 +23,19 @@ public class Permission {
     private Role role;
 
     @Column(name = "can_create_chat", nullable = false)
-    private boolean isCreateChat;
+    private boolean canCreateChat;
 
     @Column(name = "can_delete_chat", nullable = false)
-    private boolean isDeleteChat;
+    private boolean canDeleteChat;
 
     @Column(name = "can_edit_message", nullable = false)
-    private boolean isEditMessage;
+    private boolean canEditMessage;
 
     @Column(name = "can_delete_user", nullable = false)
-    private boolean isDeleteUser;
+    private boolean canDeleteUser;
 
-    @Column(name = "canUseChat", nullable = false)
-    private boolean isUseChat;
+    @Column(name = "can_use_chat", nullable = false)
+    private boolean canUseChat;
 
     @ManyToMany(mappedBy = "permissions")
     private List<User> users = new ArrayList<>();

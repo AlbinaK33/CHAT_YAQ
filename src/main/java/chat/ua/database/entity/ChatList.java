@@ -15,7 +15,7 @@ public class ChatList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "chat_name", nullable = false)
+    @Column(name = "chat_name", nullable = false, length = 50)
     private String chatName;
 
     @ManyToOne
