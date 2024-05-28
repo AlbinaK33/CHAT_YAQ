@@ -1,6 +1,8 @@
 package chat.ua.database.entity;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -12,10 +14,6 @@ public class ChatList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "topic_id", nullable = false)
-    private Room topic;
 
     @Column(name = "chat_name", nullable = false)
     private String chatName;
@@ -36,6 +34,12 @@ public class ChatList {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+    
+    @OneToMany(mappedBy = "chat_list", cascade = CascadeType.ALL)
+    private Set<Participants> participants = new HashSet<>();
+
+    @OneToMany(mappedBy = "chat_list", cascade = CascadeType.ALL)
+    private Set<Chat> chats = new HashSet<>();
 
 }
 
