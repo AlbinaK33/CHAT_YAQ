@@ -90,7 +90,7 @@ public class User {
 
     @ManyToMany
     @JoinTable(
-            name = "role_permissions",
+            name = "user_role_permissions",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id")
     )
