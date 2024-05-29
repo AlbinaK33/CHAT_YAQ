@@ -14,10 +14,10 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "room_name", nullable = false)
+    @Column(name = "room_name", nullable = false, length = 500)
     private String roomName;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false, length = 500)
     private String description;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
