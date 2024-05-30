@@ -20,8 +20,6 @@ public class UserService {
     }
 
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     }
-
-    // Додаткові методи для бізнес-логіки
 }

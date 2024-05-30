@@ -24,6 +24,4 @@ public class UserController {
         User user = userService.getUserById(id);
         return ResponseEntity.ok(user);
     }
-
-    // Додаткові методи для роботи з користувачами
 }
