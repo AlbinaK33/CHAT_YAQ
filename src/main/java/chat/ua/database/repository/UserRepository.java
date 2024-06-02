@@ -1,6 +1,7 @@
 package chat.ua.database.repository;
 
 import chat.ua.database.entity.User;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

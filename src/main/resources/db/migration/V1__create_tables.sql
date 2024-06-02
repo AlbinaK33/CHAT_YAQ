@@ -19,75 +19,69 @@ CREATE TABLE users (
 );
 
 CREATE TABLE role_permissions (
-                                  id SERIAL PRIMARY KEY,
-                                  role_name VARCHAR(10) NOT NULL,
-                                  can_create_chat BOOLEAN NOT NULL,
-                                  can_delete_chat BOOLEAN NOT NULL,
-                                  can_edit_message BOOLEAN NOT NULL,
-                                  can_delete_user BOOLEAN NOT NULL,
-                                  can_use_chat BOOLEAN NOT NULL
+    id SERIAL PRIMARY KEY,
+    role_name VARCHAR(10) NOT NULL,
+    can_create_chat BOOLEAN NOT NULL,
+    can_delete_chat BOOLEAN NOT NULL,
+    can_edit_message BOOLEAN NOT NULL,
+    can_delete_user BOOLEAN NOT NULL,
+    can_use_chat BOOLEAN NOT NULL
 );
 
 CREATE TABLE user_contacts (
-                               id SERIAL PRIMARY KEY,
-                               user_id BIGINT NOT NULL,
-                               contact_id BIGINT NOT NULL,
-                               FOREIGN KEY (user_id) REFERENCES users(id),
-                               FOREIGN KEY (contact_id) REFERENCES users(id)
+    id SERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    contact_id BIGINT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (contact_id) REFERENCES users(id)
 );
 
 CREATE TABLE user_role_permissions (
-                                       user_id BIGINT NOT NULL,
-                                       permission_id BIGINT NOT NULL,
-                                       PRIMARY KEY (user_id, permission_id),
-                                       FOREIGN KEY (user_id) REFERENCES users(id),
-                                       FOREIGN KEY (permission_id) REFERENCES role_permissions(id)
+    user_id BIGINT NOT NULL,
+    permission_id BIGINT NOT NULL,
+    PRIMARY KEY (user_id, permission_id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (permission_id) REFERENCES role_permissions(id)
 );
 
-
-
 CREATE TABLE room (
-                      id SERIAL PRIMARY KEY,
-                      room_name VARCHAR(100) NOT NULL,
-                      description TEXT
+    id SERIAL PRIMARY KEY,
+    room_name VARCHAR(100) NOT NULL,
+    description TEXT
 );
 
 CREATE TABLE list_chat (
-                           id SERIAL PRIMARY KEY,
-                           chat_name VARCHAR(100) NOT NULL,
-                           created_user_id BIGINT NOT NULL,
-                           created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                           delete_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                           status BOOLEAN NOT NULL,
-                           user_id BIGINT NOT NULL,
-                           FOREIGN KEY (created_user_id) REFERENCES users(id),
-                           FOREIGN KEY (user_id) REFERENCES users(id)
-
+    id SERIAL PRIMARY KEY,
+    created_user_id BIGINT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    delete_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status BOOLEAN NOT NULL,
+    user_id BIGINT NOT NULL,
+    FOREIGN KEY (created_user_id) REFERENCES users(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE participants (
-                              id SERIAL PRIMARY KEY,
-                              room_id BIGINT NOT NULL,
-                              user_id BIGINT NOT NULL,
-                              chat_list_id BIGINT NOT NULL,
-                              FOREIGN KEY (room_id) REFERENCES room(id),
-                              FOREIGN KEY (user_id) REFERENCES users(id),
-                              FOREIGN KEY (chat_list_id) REFERENCES list_chat(id)
+    room_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    PRIMARY KEY (user_id, room_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE NO ACTION,
+    FOREIGN KEY (room_id) REFERENCES room(id) ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
 CREATE TABLE chat (
-                      id SERIAL PRIMARY KEY,
-                      list_id BIGINT NOT NULL,
-                      user_id BIGINT NOT NULL,
-                      content TEXT NOT NULL,
-                      timestamp TIMESTAMP WITH TIME ZONE,
-                      is_edited BOOLEAN NOT NULL,
-                      edited_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                      attachments TEXT,
-                      pinned BOOLEAN NOT NULL,
-                      is_read BOOLEAN NOT NULL,
-                      read_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                      FOREIGN KEY (list_id) REFERENCES list_chat(id),
-                      FOREIGN KEY (user_id) REFERENCES users(id)
+    id SERIAL PRIMARY KEY,
+    chat_name VARCHAR(45) NOT NULL UNIQUE,
+    list_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    content TEXT NOT NULL,
+    timestamp TIMESTAMP WITH TIME ZONE,
+    is_edited BOOLEAN NOT NULL,
+    edited_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    attachments TEXT,
+    pinned BOOLEAN NOT NULL,
+    is_read BOOLEAN NOT NULL,
+    read_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (list_id) REFERENCES list_chat(id) ON DELETE CASCADE ON UPDATE NO ACTION,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
-

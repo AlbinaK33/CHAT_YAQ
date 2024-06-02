@@ -44,6 +44,6 @@ FROM room r
          LEFT JOIN list_chat lc ON r.id = lc.user_id
 GROUP BY r.room_name;
 
-SELECT u.username AS user, uc.contact_id AS contact_id
+SELECT u.username AS "user", uc.contact_id AS contact_id
 FROM users u
          JOIN user_contacts uc ON u.id = uc.user_id;

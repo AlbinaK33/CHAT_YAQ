@@ -14,7 +14,6 @@ VALUES
     ('user', false, false, false, false, true),
     ('user', true, false, false, false, true);
 
-
 INSERT INTO user_contacts (user_id, contact_id)
 VALUES
     (1, 2),
@@ -22,7 +21,6 @@ VALUES
     (3, 4),
     (4, 5),
     (5, 1);
-
 
 INSERT INTO user_role_permissions (user_id, permission_id)
 VALUES
@@ -40,26 +38,10 @@ VALUES
     ('Room 4', 'Description for Room 4'),
     ('Room 5', 'Description for Room 5');
 
-INSERT INTO list_chat (chat_name, created_user_id, status, user_id)
+INSERT INTO list_chat (created_user_id, delete_at, status, user_id)
 VALUES
-    ('Chat 1', 1, true, 2),
-    ('Chat 2', 2, true, 3),
-    ('Chat 3', 3, true, 4),
-    ('Chat 4', 4, true, 5),
-    ('Chat 5', 5, true, 1);
-
-INSERT INTO participants (room_id, user_id, chat_list_id)
-VALUES
-    (1, 1, 1),
-    (2, 2, 2),
-    (3, 3, 3),
-    (4, 4, 4),
-    (5, 5, 5);
-
-INSERT INTO chat (list_id, user_id, content, timestamp, is_edited, attachments, pinned, is_read)
-VALUES
-    (1, 1, 'Message 1', CURRENT_TIMESTAMP, false, NULL, false, false),
-    (2, 2, 'Message 2', CURRENT_TIMESTAMP, false, NULL, false, false),
-    (3, 3, 'Message 3', CURRENT_TIMESTAMP, false, NULL, false, false),
-    (4, 4, 'Message 4', CURRENT_TIMESTAMP, false, NULL, false, false),
-    (5, 5, 'Message 5', CURRENT_TIMESTAMP, false, NULL, false, false);
+    (1, CURRENT_TIMESTAMP, true, 2),
+    (2, CURRENT_TIMESTAMP, true, 3),
+    (3, CURRENT_TIMESTAMP, true, 4),
+    (4, CURRENT_TIMESTAMP, true, 5),
+    (5, CURRENT_TIMESTAMP, true, 1);

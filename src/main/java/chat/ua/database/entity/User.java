@@ -15,7 +15,6 @@ import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 @Entity
 @Data
 @Table(name = "users")
@@ -94,8 +93,12 @@ public class User implements UserDetails {
     )
     private List<Permission> permissions = new ArrayList<>();
     
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Participants> participants = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+      name = "participants",
+      joinColumns = @JoinColumn(name = "user_id"),
+      inverseJoinColumns = @JoinColumn(name = "room_id"))
+    private Set<Room> rooms;
 
 
     @Override
@@ -141,11 +144,5 @@ public class User implements UserDetails {
     protected void onCreate() {
         this.registrationDate = LocalDateTime.now();
     }
-
-
-
-
-
-
 
 }
