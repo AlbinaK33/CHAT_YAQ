@@ -54,7 +54,6 @@ CREATE TABLE room (
 
 CREATE TABLE list_chat (
                            id SERIAL PRIMARY KEY,
-                           chat_name VARCHAR(100) NOT NULL,
                            created_user_id BIGINT NOT NULL,
                            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                            delete_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -66,17 +65,16 @@ CREATE TABLE list_chat (
 );
 
 CREATE TABLE participants (
-                              id SERIAL PRIMARY KEY,
                               room_id BIGINT NOT NULL,
                               user_id BIGINT NOT NULL,
-                              chat_list_id BIGINT NOT NULL,
-                              FOREIGN KEY (room_id) REFERENCES room(id),
-                              FOREIGN KEY (user_id) REFERENCES users(id),
-                              FOREIGN KEY (chat_list_id) REFERENCES list_chat(id)
+                              PRIMARY KEY (user_id, room_id),
+                              FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE NO ACTION,
+                              FOREIGN KEY (room_id) REFERENCES room(id) ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
 CREATE TABLE chat (
                       id SERIAL PRIMARY KEY,
+                      chat_name VARCHAR(45) NOT NULL UNIQUE,
                       list_id BIGINT NOT NULL,
                       user_id BIGINT NOT NULL,
                       content TEXT NOT NULL,
@@ -87,7 +85,7 @@ CREATE TABLE chat (
                       pinned BOOLEAN NOT NULL,
                       is_read BOOLEAN NOT NULL,
                       read_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                      FOREIGN KEY (list_id) REFERENCES list_chat(id),
-                      FOREIGN KEY (user_id) REFERENCES users(id)
+                      FOREIGN KEY (list_id) REFERENCES list_chat(id) ON DELETE CASCADE ON UPDATE NO ACTION,
+                      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 

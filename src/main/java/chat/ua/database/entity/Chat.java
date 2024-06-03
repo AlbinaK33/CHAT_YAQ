@@ -13,9 +13,12 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "chat_name", unique = true)
+    private String chatName;
+
     @ManyToOne
-    @JoinColumn(name = "list_id", nullable = false)
-    private ChatList list;
+    @JoinColumn(name = "list_chat_id", nullable = false)
+    private ChatList listChat;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
