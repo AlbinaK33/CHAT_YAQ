@@ -1,6 +1,5 @@
 package chat.ua.database.entity;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.*;
@@ -20,7 +19,7 @@ public class Room {
     @Column(name = "description", nullable = false, length = 500)
     private String description;
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
-    private Set<Participants> participants = new HashSet<>();
+    @ManyToMany(mappedBy = "rooms")
+    private Set<User> users;
    
 }
