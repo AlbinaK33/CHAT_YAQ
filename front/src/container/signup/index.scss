@@ -2,4 +2,18 @@
     display: flex;
     flex-direction: row;
     gap: 108px;
+    background: #fff;
+    margin: 56px;
+}
+
+.page__section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 614px;
+}
+
+.logo {
+    width: 248px;
+    height: 88px;
 }
