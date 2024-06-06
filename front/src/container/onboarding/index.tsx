@@ -42,12 +42,12 @@ const OnboardingPage: React.FC = () => {
       </header>
       <main>
         <div className="intro">
-        <img src={illustr1} alt="стікер привіт" />
+        <img className="sticker1" src={illustr1} alt="стікер привіт" />
             <div className="text">
             <p>Чат-платформа для обговорення хобі</p>
             <p>Діліться захопленнями, знаходьте однодумців, обговорюйте все, що вас надихає. Читайте, подорожуйте, готуйте, грайте, майструйте - тут ви не самотні!</p>
             </div>
-             <img src={illustr2} alt="стікер чат" />
+             <img className="sticker2" src={illustr2} alt="стікер чат" />
         </div>
         <div className="values">
             <p>Наші цінності</p>

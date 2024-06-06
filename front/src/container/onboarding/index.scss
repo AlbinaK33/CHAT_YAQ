@@ -62,4 +62,37 @@
       }
     }
   }
+  main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .intro{
+        width:50%;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        .text p{
+            font-size: 1rem;
+            width: 80%;
+            // font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        .text  p:first-child{
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 3rem;
+
+        }
+        .sticker1{
+            align-self: end;
+        }
+        .sticker2{
+            align-self: start;
+        }
+    }
+  }
 }
