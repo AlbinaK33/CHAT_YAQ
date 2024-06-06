@@ -1,0 +1,49 @@
+@import '../../global.scss';
+
+
+.page--sign-up {
+    display: flex;
+    flex-direction: row;
+    gap: 108px;
+    background: $white-color;
+    margin: auto;
+    justify-content: center;
+
+    align-items: center;
+    height: 100vh;
+}
+
+.page__section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 614px;
+  }
+  
+  .form__section {
+    display: flex;
+    border-radius: 18px;
+    border: 1px solid #e0e0e0;
+    padding: 32px;
+    gap: 32px;
+    width: 448px;
+        
+  }
+
+  .form__container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+  }
+
+
+  .text--small {
+    margin-top: 24px;
+    color: $black-color;
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+
+  
