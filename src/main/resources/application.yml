@@ -1,0 +1,29 @@
+# Def profile configuration
+
+# Data source settings for H2
+spring:
+    profiles:
+        active: prod
+    datasource:
+#    added for comfort testing
+        url: jdbc:h2:./chat
+        username: yaq
+        password:
+
+# flyway settings for H2
+    flyway:
+#    added for comfort testing
+        url: jdbc:h2:./chat
+        user: yaq
+        password:
+
+# JPA and Hibernate setup for H2
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        show-sql: true
+        hibernate:
+            ddl-auto: none
+
+# Server port
+server:
+    port: 9999
