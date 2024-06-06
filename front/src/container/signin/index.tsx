@@ -1,18 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 import "../../global.scss"
-import "./signup.scss";
+import "./signin.scss";
 import Divider from "../../component/divider";
 import SocialLogin from "../../component/socialLogin";
 
 
-const SignUpPage: React.FC = () => {
+const SignInPage: React.FC = () => {
   //   const authContext = useContext(AuthContext);
   //   const navigate = useNavigate();
 
   return (
-    <div className="page--sign-up">
+    <div className="page--sign-in">
       <aside className="page__section">
         <div>
           <img src="img/logo.png" alt="logo" className="logo" />
@@ -25,35 +24,42 @@ const SignUpPage: React.FC = () => {
       </aside>
       <section className="page__section form__section">
         <form className="form__container">
-        <h2 className="title">Зареєструватися</h2>
-
-        <SocialLogin/>
-
-        <Divider/>
+        <h2 className="title">Увійти</h2>       
         
-        <div className="field">
-          <label htmlFor="firstname">Ім'я</label>
-        <input name="firstname" id="firstname" type="text" placeholder="Введіть ваше ім’я" />
-        </div>
         <div className="field">
           <label htmlFor="email">Електронна адреса</label>
         <input name="email" id="email" type="email" placeholder="Введіть вашу електронну адресу" />
         </div>
         <div className="field">
           <label htmlFor="password">Пароль</label>
-        <input name="password" id="password" type="password" placeholder="Створіть пароль" />
-        </div>
-        <button className="button button--dark" type="submit">Продовжити</button>
-        </form>
-      <div className="signin">
+        <input name="password" id="password" type="password" placeholder="Введіть ваш пароль" />
+
+        <div className="recovery">
         <p className="text--small">
-        У вас є обліковий запис?
-        <a className="link" href="/">{" "}Увійти</a>
+        <a className="link" href="/">{" "}Забули пароль?</a>
         </p>
       </div>
+        </div>
+        
+        </form>
+
+        <div className="social-login--down">
+        <button className="button button--dark" type="submit">Увійти</button>
+        <Divider/>
+
+        <SocialLogin />
+
+        <p className="text--small">
+        Не маєте облікового запису?
+        <a className="link" href="/">{" "}Зареєструватися</a>
+        </p>
+        </div>
+
+      
+        
       </section>
     </div>
   );
 };
 
-export default SignUpPage;
+export default SignInPage;
