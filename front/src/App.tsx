@@ -3,7 +3,6 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignUpPage from "./container/signup";
 import { createContext } from "vm";
-import OnboardingPage from "./container/onboarding";
 
 function App() {
   return (
