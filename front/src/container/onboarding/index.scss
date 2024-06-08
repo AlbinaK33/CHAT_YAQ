@@ -1,98 +1,99 @@
 .page {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  header {
-    display: flex;
-    width: 100vw;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2vw;
-    .left,
-    .right {
-      display: flex;
-      align-items: center;
-    }
-    .right {
-      .log,
-      .switches {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .switches {
-        #ua,
-        #en {
-          padding: 0.3rem;
-          border-radius: 24px;
-          background-color: rgba(0, 0, 0, 0);
-          border: none;
-          font-size: 500;
-        }
-        #en {
-          margin: 0.4vw;
-        }
-        .toggle-btn {
-          background-color: #efefef;
-        }
-      }
-      .log {
-        button {
-          border-radius: 8px;
-          padding: 0.6rem 2rem;
-          border: solid 1px #000000;
-        }
-        #log-in {
-          background-color: rgba(0, 0, 0, 0);
-          margin-right: 0.6vw;
-        }
-        #sign-up {
-          background-color: #000000;
-          color: #ffffff;
-        }
-      }
-    }
-    .left {
-      a {
-        text-decoration: none;
-        color: #000000;
-        margin: 0 3vw;
-      }
-    }
-  }
-  main{
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    .intro{
-        width:50%;
-        justify-content: center;
-        align-items: center;
+    width: 100%;
+    header {
+      box-sizing: border-box;
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2vw;
+      .left,
+      .right {
         display: flex;
-        flex-direction: column;
-        text-align: center;
-        .text p{
-            font-size: 1rem;
-            width: 80%;
-            // font-weight: 500;
-            margin-bottom: 1rem;
+        align-items: center;
+      }
+      .right {
+        .log,
+        .switches {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
         }
-        .text  p:first-child{
-            font-size: 3rem;
-            font-weight: 600;
-            margin-bottom: 3rem;
-
+        .switches {
+          #ua,
+          #en {
+            padding: 0.3rem;
+            border-radius: 24px;
+            background-color: rgba(0, 0, 0, 0);
+            border: none;
+            font-size: 500;
+          }
+          #en {
+            margin: 0.4vw;
+          }
+          .toggle-btn {
+            background-color: #efefef;
+          }
         }
-        .sticker1{
-            align-self: end;
+        .log {
+          button {
+            border-radius: 8px;
+            padding: 0.6rem 2rem;
+            border: solid 1px #000000;
+          }
+          #log-in {
+            background-color: rgba(0, 0, 0, 0);
+            margin-right: 0.6vw;
+          }
+          #sign-up {
+            background-color: #000000;
+            color: #ffffff;
+          }
         }
-        .sticker2{
-            align-self: start;
+      }
+      .left {
+        a {
+          text-decoration: none;
+          color: #000000;
+          margin: 0 3vw;
         }
+      }
+    }
+    main{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  
+      .intro{
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          text-align: center;
+          .forStickerPlacing{
+            display: flex;
+             justify-content: center;
+          .text  {
+            display: flex;
+            margin:0;
+            flex-direction: column;
+            align-items: center;
+            width:40%;
+            font-size: 24px;
+          }
+          .sticker2{
+             align-self:center; 
+          }
+          .sticker1{
+             align-self: flex-start;
+          }
+          }
+          
+      }
     }
   }
-}
+  
