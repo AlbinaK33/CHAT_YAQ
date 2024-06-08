@@ -3,7 +3,6 @@
 # Data source settings
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/chat
     url: jdbc:postgresql://localhost:5432/chat
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
@@ -11,7 +10,6 @@ spring:
 
 # flyway settings
 flyway:
-  url: jdbc:postgresql://localhost:5433/chat
   url: jdbc:postgresql://localhost:5432/chat
   user: ${DB_USERNAME}
   password: ${DB_PASSWORD}
