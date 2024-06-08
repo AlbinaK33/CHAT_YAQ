@@ -77,5 +77,4 @@ const OnboardingPage: React.FC = () => {
     </div>
   );
 };
-
 export default OnboardingPage;

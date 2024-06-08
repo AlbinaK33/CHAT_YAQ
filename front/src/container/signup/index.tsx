@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../../global.scss"
 import "./index.scss";
 
+import { useNavigate } from "react-router-dom";
 
 const SignUpPage: React.FC = () => {
   //   const authContext = useContext(AuthContext);
@@ -46,6 +47,7 @@ const SignUpPage: React.FC = () => {
         </p>
       </div>
       </section>
+      <form className="page__section">Form</form>
     </div>
   );
 };
