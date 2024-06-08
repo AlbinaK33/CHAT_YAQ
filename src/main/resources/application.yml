@@ -3,6 +3,7 @@
 # Data source settings for H2
 spring:
 <<<<<<< HEAD
+<<<<<<< HEAD
   profiles:
     active: prod
   datasource:
@@ -29,6 +30,8 @@ spring:
 server:
   port: 9999
 =======
+=======
+>>>>>>> parent of 26ec5a3a (Merge pull request #15 from AlbinaK33/onboarding)
     profiles:
         active: prod
     datasource:
@@ -53,5 +56,9 @@ server:
 
 # Server port
 server:
+<<<<<<< HEAD
+    port: 9999
+>>>>>>> parent of 26ec5a3a (Merge pull request #15 from AlbinaK33/onboarding)
+=======
     port: 9999
 >>>>>>> parent of 26ec5a3a (Merge pull request #15 from AlbinaK33/onboarding)
