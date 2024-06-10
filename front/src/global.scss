@@ -1,69 +1,73 @@
 @font-face {
-    font-family: 'KyivTypeSans';
-    src: url('./fonts/kyivtypesans/OTF/KyivTypeSans-Black2.otf') format('opentype');
-    src: url('./fonts/kyivtypesans/KyivTypeSans-VarGX.ttf') format('truetype');
-  }
-
-  
-  $black-color: #000;
-  $white-color: #fff;
-  
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  font-family: 'KyivTypeSans';
+  src: url('./fonts/kyivtypesans/OTF/KyivTypeSans-Black2.otf') format('opentype');
+  src: url('./fonts/kyivtypesans/KyivTypeSans-VarGX.ttf') format('truetype');
 }
 
-  body {
-    font-family: "KyivTypeSans", sans-serif;
-  }
+
+$black-color: #000;
+$white-color: #fff;
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "KyivTypeSans", sans-serif;
+}
 
 
 
 .button {
-  border-radius: 12px;
-  padding: 14px;
-  cursor: pointer;
+border-radius: 12px;
+padding: 14px;
+cursor: pointer;
 }
 
 .button--dark {
-  background-color: $black-color;
-  color: $white-color;
-  transition: backgrground-color 0.3s ease;
+background-color: #0E0E0E;
+color: $white-color;
+transition: backgrground-color 0.3s ease;
 
-  &:hover {
-      background-color: #333;
-  }
+&:hover {
+    background-color: #232323;
+}
 
-  &:disabled {
-    background-color: #fafafa;
-  }
+&:focus {
+  background-color: #010101;
+}
+
+&:disabled {
+  background-color: #A2A2A2;
+}
 }
 
 .logo {
-  max-width: 248px;
-  height: 88px;
+max-width: 248px;
+height: 88px;
 }
 
 .aside_img {
-  max-width: 614px;
-  margin-top: 40px;
+max-width: 614px;
+margin-top: 40px;
 }
 
 p.text {
-  color: $black-color;
-  text-align: center;
-  padding: 12px 20px 0 20px;
-  line-height: 28px;
-  font-size: 20px;
+color: $black-color;
+text-align: center;
+padding: 12px 20px 0 20px;
+line-height: 28px;
+font-size: 20px;
 }
 
 .title {
-  color: $black-color;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 32px;
-  text-align: center;
+color: $black-color;
+font-weight: bold;
+font-size: 24px;
+line-height: 32px;
+text-align: center;
 }
 
 // .text--small {
@@ -73,17 +77,28 @@ p.text {
 // }
 
 .link {
-  text-decoration: none;
-  color: #1877F2;
+text-decoration: none;
+color: #1877F2;
+font-weight: 500;
 
-  &:hover {
-    color: #365899;
-    text-decoration: underline;
-  }
+&:hover {
+  color: #4692F5;
+  font-weight: 400;
+}
 
-  // &:visited {
-  //   color: #3556eb;
-  // }
+&:focus {
+  color: #135FC2;
+  font-weight: 600;
+}
+
+&:disabled {
+  color: #A3C9FA;
+  font-weight: 200;
+}
+
+// &:visited {
+//   color: #3556eb;
+// }
 
 }
 
@@ -91,30 +106,30 @@ p.text {
 .field {
 
 
-  label {
-      display: block;
-      margin-bottom: 12px;
-      color: $black-color;
-      font-weight: 500;
-      font-size: 16px;
-  }
+label {
+    display: block;
+    margin-bottom: 12px;
+    color: $black-color;
+    font-weight: 500;
+    font-size: 16px;
+}
 
-  input {
-      width: 100%;
-      box-sizing: border-box;
-      border: 2px solid #e0e0e0;
-      border-radius: 12px;
-      padding: 14px 16px 14px 16px;
-      color: #E0E0E0;
-      font-size: 16px;
+input {
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 14px 16px 14px 16px;
+    color: #E0E0E0;
+    font-size: 16px;
 
-      &:focus {
-        color: #404040;
-        border: 2px solid #404040;
-      }
+    &:focus {
+      color: #404040;
+      border: 2px solid #404040;
+    }
 
-      &::placeholder {
-          color: #d2d2d2;
-      }
-  }
+    &::placeholder {
+        color: #d2d2d2;
+    }
+}
 }

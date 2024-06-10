@@ -24,13 +24,19 @@
         box-sizing: border-box;
         background-color: #efefef;
         color: #232323;
-        font-weight: 500;
+        font-weight: 400;
         
 
 
       &:hover {
-        background-color: #f5f5f5;
+        background-color: #E0E0E0;
       }
+
+      &:focus {
+        background-color: #D2D2D2;
+      }
+
+      
   }
 
   .button--apple {
@@ -39,9 +45,13 @@
 
     width: 100%;
     max-width: 52px;
+    font-weight: 500;
 
     &:hover {
-        background-color: #333;
+        background-color: #232323;
+      }
+    &:focus {
+        background-color: #010101;
       }
   }
 
@@ -50,9 +60,14 @@
     color: $white-color;
     width: 100%;
     max-width: 52px;
+    font-weight: 500;
 
 
     &:hover {
-        background-color: #365899;
+        background-color: #4692F5;
+      }
+
+    &:focus {
+        background-color: #135FC2;
       }
   }
