@@ -70,4 +70,18 @@
     text-decoration: none;
     color: #0e0e0e;
     font-weight: 500;
+
+    &:hover {
+      color: #404040;
+      font-weight: 300;
+    }
+
+    &:focus {
+      color: #010101;
+      font-weight: 50;
+    }
+
+    &:disabled {
+      color: #A2A2A2;
+    }
 }
