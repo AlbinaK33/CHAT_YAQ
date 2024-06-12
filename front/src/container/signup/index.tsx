@@ -1,15 +1,139 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "../../global.scss"
 import "./signup.scss";
 import Divider from "../../component/divider";
 import SocialLogin from "../../component/socialLogin";
+import FieldPassword from "../../component/field-password";
+
+export const REG_EXP_EMAIL = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/);
+export const REG_EXP_PASSWORD = new RegExp(
+  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
+);
+
+
+const FIELD_NAME = {
+  EMAIL: "email",
+  PASSWORD: "password",
+};
+
+const FIELD_ERROR = {
+  IS_EMPTY: "Please fill in all required fields",
+  IS_BIG: "This value is too long",
+  USER_EXIST: "A user with the same name is already exist",
+  EMAIL: "Please enter a valid email address",
+  PASSWORD:
+    "Password should contain at least one digit, one lowercase letter, one uppercase letter, and be 8 characters long",
+};
 
 
 const SignUpPage: React.FC = () => {
-  //   const authContext = useContext(AuthContext);
-  //   const navigate = useNavigate();
+
+  const navigate = useNavigate()
+
+  const calculateIsFormValid = (errors: any) => {
+    return Object.values(errors).every((error) => error === "");
+  };
+  
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  const [formData, setFormData] = useState({
+    [FIELD_NAME.EMAIL]: "",
+    [FIELD_NAME.PASSWORD]: "",
+  });
+
+  const [error, setError] = useState({
+    [FIELD_NAME.EMAIL]: "",
+    [FIELD_NAME.PASSWORD]: "",
+  })
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const clearForm = () => {
+    setFormData({
+      [FIELD_NAME.EMAIL]: "",
+      [FIELD_NAME.PASSWORD]: "",
+    });
+    setError({
+      [FIELD_NAME.EMAIL]: "",
+      [FIELD_NAME.PASSWORD]: "",
+    });
+  };
+
+  const validate = (name: string, value: any) => {
+    if (String(value).length < 1) {
+      return FIELD_ERROR.IS_EMPTY;
+    }
+    if (String(value).length > 20) {
+      return FIELD_ERROR.IS_BIG;
+    }
+    if (name === FIELD_NAME.EMAIL) {
+      if (!REG_EXP_EMAIL.test(String(value))) {
+        return FIELD_ERROR.EMAIL;
+      }
+    }
+    if (name === FIELD_NAME.PASSWORD) {
+      if (!REG_EXP_PASSWORD.test(String(value))) {
+        return FIELD_ERROR.PASSWORD;
+      }
+    }
+    return "";
+  };
+
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    const errorMess = validate(name, value);
+    setError({ ...error, [name]: errorMess });
+    //=============================================
+
+    const newIsFormValid = calculateIsFormValid({
+      ...error,
+      [name]: errorMess,
+    });
+    setIsFormValid(newIsFormValid);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
+    e.preventDefault();
+
+    const isFormValid = calculateIsFormValid(error);
+
+    if(isFormValid) {
+      try {
+        const {email, password} = formData;
+
+        const res = await fetch("http://localhost:9999/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+          });
+
+          const data = await res.json();
+
+          //-----------
+
+          if (res.ok) {
+            clearForm();
+          navigate("/signup-confirm");
+          }
+
+        } catch (err) {
+          console.log(err)
+      } 
+    }
+  };
+
+
+
 
   return (
     <div className="page--sign-up">
@@ -24,7 +148,7 @@ const SignUpPage: React.FC = () => {
         </div>
       </aside>
       <section className="page__section form__section">
-        <form className="form__container">
+        <form className="form__container" onSubmit={handleSubmit}>
         <h2 className="title">Зареєструватися</h2>
 
         <SocialLogin/>
@@ -39,11 +163,18 @@ const SignUpPage: React.FC = () => {
           <label htmlFor="email">Електронна адреса</label>
         <input name="email" id="email" type="email" placeholder="Введіть вашу електронну адресу" />
         </div>
-        <div className="field">
-          <label htmlFor="password">Пароль</label>
-        <input name="password" id="password" type="password" placeholder="Створіть пароль" />
-        </div>
-        <button className="button button--dark" type="submit">Продовжити</button>
+        
+        <FieldPassword
+        label={"Пароль"}
+        value="formData"
+        onChange={handleChange}
+        error={error[FIELD_NAME.PASSWORD]}
+        showPassword={showPassword}
+        onTogglePassword={togglePasswordVisibility}
+        placeholder="Створіть пароль" />
+
+        <button className="button button--dark" type="submit"
+        >Продовжити</button>
         </form>
       <div className="signin">
         <p className="text--small">

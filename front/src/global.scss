@@ -4,6 +4,11 @@
   src: url('./fonts/kyivtypesans/KyivTypeSans-VarGX.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype');
+}
+
 
 $black-color: #000;
 $white-color: #fff;
@@ -120,7 +125,9 @@ input {
     border: 2px solid #e0e0e0;
     border-radius: 12px;
     padding: 14px 16px 14px 16px;
-    color: #E0E0E0;
+    color: #BFBFBF;
+    font-weight: 500;
+    font-family: "Montserrat", sans-serif;
     font-size: 16px;
 
     &:focus {
