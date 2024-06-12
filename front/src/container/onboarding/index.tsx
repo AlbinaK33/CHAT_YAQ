@@ -26,6 +26,7 @@ const OnboardingPage: React.FC = () => {
               className="toggle-btn"
               onClick={() => setToggled(!toggled)}
             ></button>
+           
             <SwitchTheme onChange={()=>setSwithTheme(!swithTheme)}isSwitchOn={swithTheme}/>
           </div>
           <div className="log">
