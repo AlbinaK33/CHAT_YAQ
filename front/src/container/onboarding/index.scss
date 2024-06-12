@@ -8,6 +8,7 @@
     width: 100%;
     min-height: 100vh;
 
+    overflow-x: hidden;
     gap:108px;
     header {
       box-sizing: border-box;
@@ -28,8 +29,11 @@
           display: flex;
           justify-content: space-between;
           align-items: center;
+          
         }
         .switches {
+          gap:0.3rem;
+          padding: 0 0.3rem;
           #ua,
           #en {
             padding: 0.3rem;
@@ -109,17 +113,21 @@
           .sticker1{
              align-self: flex-start;
             margin-top: -100px;
+            margin-top: -35px;
             margin-left: -100px;
           }
           }
           
       }
       #logo{
+        padding-top: 32px;
         width: 100%;
         display: flex;
         justify-content: center;
         // margin-right: 80px;
         .sign{
+          box-sizing: content-box;
+          padding-top: 160px;
           position: absolute;
           right: 5vw;
         }

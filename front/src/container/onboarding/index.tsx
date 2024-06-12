@@ -1,9 +1,11 @@
 import React from "react";
 import "./index.scss";
 import { useState } from "react";
+import SwitchTheme from "../../component/SwitchTheme";
 
 const OnboardingPage: React.FC = () => {
   const [toggled, setToggled] = useState(false);
+  const [swithTheme, setSwithTheme] = useState(true);
   return (
     <div className="page">
       <header>
@@ -24,6 +26,7 @@ const OnboardingPage: React.FC = () => {
               className="toggle-btn"
               onClick={() => setToggled(!toggled)}
             ></button>
+            <SwitchTheme onChange={()=>setSwithTheme(!swithTheme)}isSwitchOn={swithTheme}/>
           </div>
           <div className="log">
             <button id="log-in">Увійти</button>
@@ -62,6 +65,7 @@ const OnboardingPage: React.FC = () => {
         </div>
         <div id="logo">
           <img style={{width:"681.48px", height:"639px"}}src="/img/Logo card.png" alt="logo card" />
+          <img style={{width:"auto", height:"100%"}}src="/img/Logo card.png" alt="logo card" />
           <img  className="sign"style={{width:"325.89px", height:"287.16px"}}src="/img/sign.png" alt="Чому YAQ? Натискай картинку і дізнаєшся" />
         </div>
         <div id="values">
