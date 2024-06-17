@@ -1,14 +1,14 @@
 .page {
     margin: 0;
     padding: 0;
-  background: radial-gradient(ellipse at center, rgba(30, 215, 96, 0.5) 0%, rgba(165, 239, 191, 0.5) 50%, rgba(165, 239, 191, 0.5) 100%);
-  background-repeat: no-repeat;
+    background: radial-gradient( rgba(30, 215, 96, 0.4) 0%, rgba(165, 239, 191, 0.2) 50%, rgba(165, 239, 191, 0.1) 100%);  
+
+    
     display: flex;
     flex-direction: column;
     width: 100%;
     min-height: 100vh;
 
-    overflow-x: hidden;
     gap:108px;
     header {
       box-sizing: border-box;
@@ -82,9 +82,10 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-  
+
       gap: 108px;
       .intro{
+
         margin-top:108px;
           align-items: center;
           display: flex;
@@ -117,7 +118,6 @@
           .sticker1{
              align-self: flex-start;
             margin-top: -100px;
-            margin-top: -35px;
             margin-left: -100px;
           }
           }
@@ -128,13 +128,42 @@
         width: 100%;
         display: flex;
         justify-content: center;
-        // margin-right: 80px;
         .sign{
           box-sizing: content-box;
           padding-top: 160px;
           position: absolute;
           right: 5vw;
         }
+        img:first-child{
+            &:hover{
+              cursor: pointer;
+            }
+        }
+        .text-about{
+          padding: 32px;
+          display: flex;
+          background-color: #232323;
+          
+          flex-direction: column;
+          align-items: center;
+          gap: 0;
+          color:#FAFAFA;
+          border-radius: 24px;
+          &:hover{
+            cursor: pointer;
+          }
+          h2{
+            font-size: 32px;
+            font-weight: bold;
+          }
+          p{
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 24px;
+            padding-bottom: 16px;
+          }
+        }
+        
       }
       
       #values{
@@ -166,7 +195,6 @@
         flex-direction: column;
         background-color: #232323;
         border-radius: 56px 56px 0 0;
-        margin-left: -36px;
         padding: 32px 64px;       
         color:#FAFAFA;
         .footerLeft{
