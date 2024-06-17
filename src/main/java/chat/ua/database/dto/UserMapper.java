@@ -18,7 +18,9 @@ public class UserMapper {
         dto.setCity(user.getCity());
         dto.setCountry(user.getCountry());
         dto.setAboutMe(user.getAboutMe());
-        dto.setSocial(user.getSocial());
+        dto.setInstagram(user.getInstagram());
+        dto.setLinkedin(user.getLinkedin());
+        dto.setFacebook(user.getFacebook());
         dto.setAvatar(user.getAvatar());
         dto.setTimezone(user.getTimezone() != null ? String.valueOf((ZoneId.of(user.getTimezone().toString()))) : null);
         return dto;
@@ -34,7 +36,9 @@ public class UserMapper {
         user.setCity(dto.getCity());
         user.setCountry(dto.getCountry());
         user.setAboutMe(dto.getAboutMe());
-        user.setSocial(dto.getSocial());
+        user.setInstagram(dto.getInstagram());
+        user.setLinkedin(dto.getLinkedin());
+        user.setFacebook(dto.getFacebook());
         user.setAvatar(user.getAvatar());
         if (dto.getTimezone() != null) {
             user.setTimezone(ZoneId.of(dto.getTimezone()));
@@ -51,8 +55,10 @@ public class UserMapper {
         user.setCity(dto.getCity());
         user.setCountry(dto.getCountry());
         user.setAboutMe(dto.getAboutMe());
-        user.setSocial(dto.getSocial());
-        user.setAvatar(user.getAvatar());
+        user.setInstagram(dto.getInstagram());
+        user.setLinkedin(dto.getLinkedin());
+        user.setFacebook(dto.getFacebook());
+        user.setAvatar(dto.getAvatar());
         if (dto.getTimezone() != null) {
             user.setTimezone(ZoneId.of(dto.getTimezone()));
         }

@@ -27,7 +27,9 @@ public class UserDTO {
     private String city;
     private String country;
     private String aboutMe;
-    private String social;
+    private String instagram;
+    private String linkedin;
+    private String facebook;
     private byte[] avatar;
     private String timezone;
 }
