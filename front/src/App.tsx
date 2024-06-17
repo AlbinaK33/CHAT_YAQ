@@ -13,6 +13,7 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
       </Routes>
     </BrowserRouter>
+
   );
 }
 

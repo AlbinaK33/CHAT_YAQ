@@ -1,14 +1,21 @@
 .page {
     margin: 0;
     padding: 0;
+  background: radial-gradient(ellipse at center, rgba(30, 215, 96, 0.5) 0%, rgba(165, 239, 191, 0.5) 50%, rgba(165, 239, 191, 0.5) 100%);
+  background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     width: 100%;
+    min-height: 100vh;
+
+    overflow-x: hidden;
+    gap:108px;
     header {
       box-sizing: border-box;
       display: flex;
       width: 100%;
       justify-content: space-between;
+     justify-content: space-between;
       align-items: center;
       padding: 0 2vw;
       .left,
@@ -22,12 +29,15 @@
           display: flex;
           justify-content: space-between;
           align-items: center;
+          
         }
 
 
         
 
         .switches {
+          gap:0.3rem;
+          padding: 0 0.3rem;
           #ua,
           #en {
             padding: 0.3rem;
@@ -73,7 +83,9 @@
       justify-content: center;
       align-items: center;
   
+      gap: 108px;
       .intro{
+        margin-top:108px;
           align-items: center;
           display: flex;
           flex-direction: row;
@@ -88,15 +100,97 @@
             align-items: center;
             width:40%;
             font-size: 24px;
+            width:50%;
+            p{
+              font-size: 24px;
+              line-height: 32px;
+            }
+            h1{
+              font-size: 72px;
+              line-height: 80px;
+              font-weight: bold;
+            }
           }
           .sticker2{
              align-self:center; 
           }
           .sticker1{
              align-self: flex-start;
+            margin-top: -100px;
+            margin-top: -35px;
+            margin-left: -100px;
           }
           }
           
+      }
+      #logo{
+        padding-top: 32px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        // margin-right: 80px;
+        .sign{
+          box-sizing: content-box;
+          padding-top: 160px;
+          position: absolute;
+          right: 5vw;
+        }
+      }
+      
+      #values{
+        h2{
+          font-size: 32px;
+          font-weight: bold;
+        }
+        margin: 32px;
+        .list{
+          margin-top: 32px;
+          display: flex;
+          gap:24px;
+          div{
+            width: 80%;
+            p{
+              padding-top:12px;
+              line-height: 28px;
+               font-size: 20px;
+              font-weight:300;
+            }
+            
+          }
+        }
+      }
+    }
+    footer{
+      .footerBox{
+        display: flex;
+        flex-direction: column;
+        background-color: #232323;
+        border-radius: 56px 56px 0 0;
+        margin-left: -36px;
+        padding: 32px 64px;       
+        color:#FAFAFA;
+        .footerLeft{
+          display: flex;
+        justify-content: space-between;
+        width: 40%;
+        a {
+          text-decoration: none;
+          color:#FAFAFA;
+        }
+        .values{
+          display: flex;
+          flex-direction: column;
+          gap:8px;
+          a{
+            margin: 8px 0;
+          } 
+        }
+        .social{
+          display: flex;
+          flex-direction: column;
+          gap:16px;
+        }
+      }
       }
     }
   }
