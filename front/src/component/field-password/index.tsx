@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./field-password.scss"
+
 interface PasswordProps {
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
