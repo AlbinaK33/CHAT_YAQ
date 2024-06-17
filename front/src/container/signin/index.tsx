@@ -1,14 +1,93 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "../../global.scss"
 import "./signin.scss";
 import Divider from "../../component/divider";
 import SocialLogin from "../../component/socialLogin";
+import FieldPassword from "../../component/field-password";
+
+
+
+const FIELD_NAME = {
+  EMAIL: "email",
+  PASSWORD: "password",
+};
+
+const FIELD_ERROR = {
+  EMAIL: "Переконайтеся, що ви ввели свою електронну адресу правильно",
+  PASSWORD:
+    "Переконайтеся, що ви ввели свій пароль правильно",
+};
 
 
 const SignInPage: React.FC = () => {
-  //   const authContext = useContext(AuthContext);
-  //   const navigate = useNavigate();
+  const navigate = useNavigate()
+
+  const calculateIsFormValid = (errors: any) => {
+    return Object.values(errors).every((error) => error === "");
+  };
+  
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [error, setError] = useState({
+    [FIELD_NAME.EMAIL]: "",
+    [FIELD_NAME.PASSWORD]: "",
+  })
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+
+ 
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+
+    setError({
+      ...error,
+      [name]: "",
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+
+    try {
+      const res = await fetch("http://localhost:4000/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      const data = await res.json();
+
+          //-----------
+
+          if (res.ok) {
+          navigate("/");
+          }
+
+        } catch (err) {
+          console.log(err)
+      } 
+    }
+  
 
   return (
     <div className="page--sign-in">
@@ -23,7 +102,7 @@ const SignInPage: React.FC = () => {
         </div>
       </aside>
       <section className="page__section form__section">
-        <form className="form__container">
+        <form className="form__container" onSubmit={handleSubmit}>
         <h2 className="title">Увійти</h2>       
         
         <div className="field">
@@ -31,8 +110,17 @@ const SignInPage: React.FC = () => {
         <input name="email" id="email" type="email" placeholder="Введіть вашу електронну адресу" />
         </div>
         <div className="field">
-          <label htmlFor="password">Пароль</label>
-        <input name="password" id="password" type="password" placeholder="Введіть ваш пароль" />
+          
+
+        <FieldPassword
+            label={"Пароль"}
+            value={user.password}
+            onChange={handleChange}
+            error={error.password}
+            showPassword={showPassword}
+            onTogglePassword={togglePasswordVisibility}
+            placeholder="Введіть ваш пароль"
+          />
 
         <div className="recovery">
         <p className="text--small">

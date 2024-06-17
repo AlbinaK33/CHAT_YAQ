@@ -19,9 +19,10 @@ const FIELD_NAME = {
 };
 
 const FIELD_ERROR = {
-  IS_EMPTY: "Please fill in all required fields",
-  IS_BIG: "This value is too long",
-  USER_EXIST: "A user with the same name is already exist",
+  IS_SMALL: "Мінімум 8 символів",
+  IS_NUMBER: "Містить принаймні одну цифру",
+  IS_SYMBOL: "Без спеціальних символів (!$@%#&)",
+
   EMAIL: "Переконайтеся, що ви ввели свою електронну адресу правильно",
   PASSWORD:
     "Переконайтеся, що ви ввели свій пароль правильно",
@@ -66,11 +67,14 @@ const SignUpPage: React.FC = () => {
   };
 
   const validate = (name: string, value: any) => {
-    if (String(value).length < 1) {
-      return FIELD_ERROR.IS_EMPTY;
+    if (!/\d/.test(String(value))) {
+      return FIELD_ERROR.IS_NUMBER;
     }
-    if (String(value).length > 20) {
-      return FIELD_ERROR.IS_BIG;
+    if (String(value).length < 8) {
+      return FIELD_ERROR.IS_SMALL;
+    }
+    if (/[!$@%#&]/.test(String(value))) {
+      return FIELD_ERROR.IS_SYMBOL;
     }
     if (name === FIELD_NAME.EMAIL) {
       if (!REG_EXP_EMAIL.test(String(value))) {
