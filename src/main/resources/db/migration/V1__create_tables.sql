@@ -14,7 +14,7 @@ CREATE TABLE users (
                        blocked BOOLEAN NOT NULL,
                        about_me VARCHAR(100),
                        social_networks VARCHAR(15),
-                       timezone TIMESTAMP WITH TIME ZONE,
+                       timezone VARCHAR(30) NOT NULL,
                        language VARCHAR(3) NOT NULL
 );
 
