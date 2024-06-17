@@ -21,6 +21,9 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src",
+    "src/container/onboarding/index.tsx",
+    "src/component/Switch.tsx",
+    "src/component/index.tsx"
   ]
 }
