@@ -69,8 +69,14 @@ public class User implements UserDetails {
     @Column(name = "about_me", length = 100)
     private String aboutMe;
 
-    @Column(name = "social_networks", length = 100)
-    private String social;
+    @Column(name = "instagram", length = 100)
+    private String instagram;
+
+    @Column(name = "linkedin", length = 100)
+    private String linkedin;
+
+    @Column(name = "facebook", length = 100)
+    private String facebook;
 
     @Convert(converter = Jsr310JpaConverters.ZoneIdConverter.class)
     @Column(name = "timezone", nullable = false)

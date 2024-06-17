@@ -13,7 +13,9 @@ CREATE TABLE users (
                        avatar BYTEA,
                        blocked BOOLEAN NOT NULL,
                        about_me VARCHAR(100),
-                       social_networks VARCHAR(15),
+                       instagram VARCHAR(100),
+                       linkedin VARCHAR(100),
+                       facebook VARCHAR(100),
                        timezone VARCHAR(30) NOT NULL,
                        language VARCHAR(3) NOT NULL
 );
