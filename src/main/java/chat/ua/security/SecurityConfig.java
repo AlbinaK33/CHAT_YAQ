@@ -35,7 +35,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Вимкніть CSRF для API
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/api/auth/login", "/api/users/register").permitAll()
+                                .requestMatchers("/api/auth/login", "/api/users/register", "/api/user", "/api/user/*",
+                                "/api/user/update/*", "/api/support/request").permitAll()
                                 .anyRequest().authenticated()
                 )
 

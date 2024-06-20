@@ -1,10 +1,13 @@
-INSERT INTO users (username, password, first_name, last_name, email, phone, city, country, blocked, language)
+INSERT INTO users (username, password, first_name, last_name, email, phone, city, country, registration_date, last_login_date, timezone, blocked, language)
 VALUES
-    ('john_doe', 'Password123', 'John', 'Doe', 'john.doe@example.com', '+123456789', 'New York', 'USA', false, 'en'),
-    ('alice_smith', 'SecurePwd456', 'Alice', 'Smith', 'alice.smith@example.com', '+987654321', 'London', 'UK', false, 'en'),
-    ('mike_jones', 'StrongPass789', 'Mike', 'Jones', 'mike.jones@example.com', NULL, 'Los Angeles', 'USA', false, 'en'),
-    ('sarah_adams', 'SafePassword1', 'Sarah', 'Adams', 'sarah.adams@example.com', '+1122334455', 'Toronto', 'Canada', false, 'en'),
-    ('robert_brown', 'Password123ABC', 'Robert', 'Brown', 'robert.brown@example.com', '+9988776655', 'Berlin', 'Germany', false, 'en');
+    ('john_doe', 'Password123', 'John', 'Doe', 'john.doe@example.com', '+123456789', 'New York', 'USA', now(), now(), 'UTC', false, 'ENG'),
+    ('alice_smith', 'SecurePwd456', 'Alice', 'Smith', 'alice.smith@example.com', '+987654321', 'London', 'UK', now(), now(), 'UTC', false, 'ENG'),
+    ('mike_jones', 'StrongPass789', 'Mike', 'Jones', 'mike.jones@example.com', NULL, 'Los Angeles', 'USA', now(), now(), 'UTC', false, 'ENG'),
+    ('sarah_adams', 'SafePassword1', 'Sarah', 'Adams', 'sarah.adams@example.com', '+1122334455', 'Toronto', 'Canada', now(), now(), 'UTC', false, 'ENG'),
+    ('robert_brown', 'Password123ABC', 'Robert', 'Brown', 'robert.brown@example.com', '+9988776655', 'Berlin', 'Germany', now(), now(), 'UTC', false, 'ENG');
+
+
+
 
 INSERT INTO role_permissions (role_name, can_create_chat, can_delete_chat, can_edit_message, can_delete_user, can_use_chat)
 VALUES

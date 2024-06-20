@@ -2,8 +2,10 @@ package chat.ua.database.entity;
 
 import chat.ua.database.entity.enums.Language;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -58,7 +60,7 @@ public class User implements UserDetails {
     @Column(name = "last_login_date", nullable = false, updatable = false)
     private LocalDateTime lastLoginDate;
 
-    @Column
+    @Column(name = "avatar")
     private byte[] avatar;
 
     @Column(name = "blocked")
@@ -67,14 +69,21 @@ public class User implements UserDetails {
     @Column(name = "about_me", length = 100)
     private String aboutMe;
 
-    @Column(name = "social_networks", length = 100)
-    private String social;
+    @Column(name = "instagram", length = 100)
+    private String instagram;
 
-    @Column(nullable = false)
+    @Column(name = "linkedin", length = 100)
+    private String linkedin;
+
+    @Column(name = "facebook", length = 100)
+    private String facebook;
+
+    @Convert(converter = Jsr310JpaConverters.ZoneIdConverter.class)
+    @Column(name = "timezone", nullable = false)
     private ZoneId timezone;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "language", nullable = false)
     private Language language;
 
     @ManyToMany
@@ -100,22 +109,16 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "room_id"))
     private Set<Room> rooms;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SupportRequest> supportRequests = new ArrayList<>();
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return permissions.stream()
                 .map(permission -> new SimpleGrantedAuthority(permission.getRole().name()))
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
     }
 
     @Override
@@ -139,10 +142,17 @@ public class User implements UserDetails {
     }
 
 
-
     @PrePersist
     protected void onCreate() {
         this.registrationDate = LocalDateTime.now();
+        this.timezone = ZoneId.systemDefault();
     }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.lastLoginDate = LocalDateTime.now();
+        this.timezone = ZoneId.systemDefault();
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package chat.ua.database.service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -23,6 +24,14 @@ public class ChatListService {
 
     public Set<Chat> getChatsByChatList(ChatList chatList){
         return chatList.getChats();
+    }
+    
+    public List<ChatList> getAllChatLists() {
+        return chatListRepository.findAll();
+    }
+    
+    public void deleteChatListById(Long id) {
+        chatListRepository.deleteById(id);
     }
 
 }
