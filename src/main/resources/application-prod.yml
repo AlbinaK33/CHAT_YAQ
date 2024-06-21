@@ -19,10 +19,12 @@ jpa:
   database: POSTGRESQL
   show-sql: true
   hibernate:
-    ddl-auto: none
+    ddl-auto: update #NONE
   properties:
     hibernate:
       dialect: org.hibernate.dialect.PostgreSQLDialect
+#jackson:
+ # timezone: UTC
 
 # Server port
 server:
