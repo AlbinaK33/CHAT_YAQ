@@ -122,6 +122,13 @@ const SignInPage: React.FC = () => {
             placeholder="Введіть ваш пароль"
           />
 
+          {error.password && (
+            <div className="block__error">
+              <img src="path/to/danger-icon.svg" alt="danger" className="icon-error" />
+              <span className="form__error">{error.password}</span>
+            </div>
+          )}
+
         <div className="recovery">
         <p className="text--small">
         <a className="link" href="/">{" "}Забули пароль?</a>
