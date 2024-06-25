@@ -55,10 +55,18 @@
 .recovery {
     display: flex;
     justify-content: flex-end;
-    margin: 8px;
-    // gap: 0px;
-    vertical-align: text-top;
+    align-items: flex-start; 
+    margin-top: 0px; 
+  width: 100%;
+
+  &.text--small {
+    margin: 0;
+    font-size: 14px;
+  }
 
     &.link {
+      display: inline-block;
+      margin: 0;
+  padding: 0;
     }
 }

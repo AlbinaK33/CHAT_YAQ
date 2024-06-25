@@ -27,7 +27,7 @@ const FieldPassword: React.FC<PasswordProps> = ({
             <div className="field">
           <label className="field__label">{label}</label>
         <input
-        className={`field__input ${error ? "field--error" : ""}`} 
+        className={`field__input ${error ? "input--error" : ""}`} 
         name="password" 
         value={value} 
         type={showPassword ? "text" : "password"} placeholder={placeholder} 
@@ -37,10 +37,12 @@ const FieldPassword: React.FC<PasswordProps> = ({
         onClick={onTogglePassword}></span>
         </div>
         <div>
-        <div className="block__error">
-        <img className="error-icon" src="./svg/danger.svg" alt="error" />
-        <p><span className="form__error" id="passwordError">  {error}</span></p>
-        </div>
+        {error && (
+            <div className="block__error">
+            <img className="icon-error" src="./svg/danger.svg" alt="error" />
+            <p><span className="form__error" id="passwordError">  {error}</span></p>
+            </div>
+        )}
         </div>
         </div>
     )
