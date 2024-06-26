@@ -13,10 +13,10 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "room_name", nullable = false, length = 500)
+    @Column(name = "room_name", nullable = false, length = 50)
     private String roomName;
 
-    @Column(name = "description", nullable = false, length = 500)
+    @Column(name = "description", nullable = false, length = 50)
     private String description;
 
     @ManyToMany(mappedBy = "rooms")
