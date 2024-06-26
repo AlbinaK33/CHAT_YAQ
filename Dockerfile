@@ -1,15 +1,3 @@
-#FROM postgres:latest
-#
-#ARG DB_USERNAME
-#ARG DB_PASSWORD
-#
-#ENV POSTGRES_USER=${DB_USERNAME}
-#ENV POSTGRES_PASSWORD=${DB_PASSWORD}
-#ENV POSTGRES_DB=chat
-#
-## Expose the default PostgreSQL port
-#EXPOSE 5432
-
 
 # Використовуємо базовий образ OpenJDK 17
 FROM openjdk:17-jdk-slim
@@ -44,13 +32,3 @@ CMD ["java", "-jar", "/app/build/libs/Chat_Yak-0.0.1-SNAPSHOT.jar"]
 
 
 
-
-
-
-#docker build --build-arg DB_USERNAME=postgres --build-arg DB_PASSWORD=mysecretpassword -t db_chat .
-# docker run --name chat_postgresql -d -p 5432:5432 db_chat
-
-# docker start container chat_postgresql
-# docker start chat_postgresql
-# docker stop container chat_postgresql
-# docker stop chat_postgresql
