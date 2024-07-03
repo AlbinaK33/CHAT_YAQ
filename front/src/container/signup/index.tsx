@@ -173,6 +173,7 @@ const SignUpPage: React.FC = () => {
         value={formData[FIELD_NAME.PASSWORD]}
         onChange={handleChange}
         error={error[FIELD_NAME.PASSWORD]}
+        requirements=""
         showPassword={showPassword}
         onTogglePassword={togglePasswordVisibility}
         placeholder="Створіть пароль" />
