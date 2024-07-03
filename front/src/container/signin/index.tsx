@@ -117,6 +117,7 @@ const SignInPage: React.FC = () => {
             value={user.password}
             onChange={handleChange}
             error={error.password}
+            requirements=""
             showPassword={showPassword}
             onTogglePassword={togglePasswordVisibility}
             placeholder="Введіть ваш пароль"
@@ -129,11 +130,11 @@ const SignInPage: React.FC = () => {
             </div>
           )}
 
-        <div className="recovery">
-        <p className="text--small">
+        <section className="recovery">
+        <span className="text--small">
         <a className="link" href="/">{" "}Забули пароль?</a>
-        </p>
-      </div>
+        </span>
+      </section>
         </div>
         
         </form>
