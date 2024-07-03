@@ -53,20 +53,15 @@
 }
 
 .recovery {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start; 
+    display: inline-block;
+    text-align: end;
     margin-top: 0px; 
   width: 100%;
+  font-size: 14px;
+  line-height: 1;
 
-  &.text--small {
-    margin: 0;
-    font-size: 14px;
+  & .link {
+    display: inline-block;
+    margin: 8px;
   }
-
-    &.link {
-      display: inline-block;
-      margin: 0;
-  padding: 0;
-    }
 }
