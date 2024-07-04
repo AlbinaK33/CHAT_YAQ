@@ -2,11 +2,16 @@ import React from "react";
 
 import "./field-password.scss"
 
+interface Requirement {
+    text: string;
+    isMet: boolean;
+}
+
 interface PasswordProps {
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     error: string;
-    requirements: string;
+    requirements?: Requirement[];
     showPassword: boolean;
     placeholder: string;
     label: string;
@@ -39,21 +44,25 @@ const FieldPassword: React.FC<PasswordProps> = ({
         onClick={onTogglePassword}></span>
         </div>
         <div>
-        {error && (
-            <div className="block__error">
-            <img className="icon-error" src="./svg/danger.svg" alt="error" />
-            <p><span className="form__error" id="passwordError">  {error}</span></p>
+        { requirements ? (
+            <div className="password-requirements">
+            {requirements.map((req, index) => (
+                <div key={index} className="requirement">
+                <img src={req.isMet ? "./svg/requirement-success.svg" : "./svg/requirement-error.svg"} alt={req.isMet ? "Success" : "Error"} />
+                <span>{req.text}</span>
             </div>
+            ))}
+        </div>
+        ) : (
+            error && (
+                <div className="block__error">
+                <img className="icon-error" src="./svg/danger.svg" alt="error" />
+                <p><span className="form__error" id="passwordError">  {error}</span></p>
+                </div>
+            )
         )}
         </div>
-        <div className="password-requirements">
-            {requirements.map((req, index) => {
-                <div key={index} className="requirement">
-                    <span className={`icon ${req.isMet} ? "requirement-success" : "requirement-error"`}></span>
-                    <span>{req.text}</span>
-                </div>
-            })}
-        </div>
+        
         </div>
     )
 }
