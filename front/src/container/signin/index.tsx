@@ -117,7 +117,6 @@ const SignInPage: React.FC = () => {
             value={user.password}
             onChange={handleChange}
             error={error.password}
-            requirements=""
             showPassword={showPassword}
             onTogglePassword={togglePasswordVisibility}
             placeholder="Введіть ваш пароль"

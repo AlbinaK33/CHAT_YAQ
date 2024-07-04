@@ -66,6 +66,12 @@ const SignUpPage: React.FC = () => {
     });
   };
 
+  const passwordRequirements = [
+    {text: "Мінімум 8 символів", isMet: formData[FIELD_NAME.PASSWORD].length >= 8},
+    {text: "Містить принаймні одну цифру", isMet: /\d/.test(formData[FIELD_NAME.PASSWORD]) },
+    {text: "Без спеціальних символів (!$@%#&)", isMet: !/[!@$%^&*]/.test(formData[FIELD_NAME.PASSWORD]) },
+  ]
+
   const validate = (name: string, value: any) => {
     if (!/\d/.test(String(value))) {
       return FIELD_ERROR.IS_NUMBER;
@@ -173,7 +179,7 @@ const SignUpPage: React.FC = () => {
         value={formData[FIELD_NAME.PASSWORD]}
         onChange={handleChange}
         error={error[FIELD_NAME.PASSWORD]}
-        requirements=""
+        requirements={passwordRequirements}
         showPassword={showPassword}
         onTogglePassword={togglePasswordVisibility}
         placeholder="Створіть пароль" />
