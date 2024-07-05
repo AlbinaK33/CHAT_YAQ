@@ -20,9 +20,6 @@ const FIELD_NAME = {
 };
 
 const FIELD_ERROR = {
-  // IS_SMALL: "Мінімум 8 символів",
-  // IS_NUMBER: "Містить принаймні одну цифру",
-  // IS_SYMBOL: "Без спеціальних символів (!$@%#&)",
 
   EMAIL: "Переконайтеся, що ви ввели свою електронну адресу правильно",
   PASSWORD:
@@ -79,15 +76,7 @@ const SignUpPage: React.FC = () => {
   ]
 
   const validate = (name: string, value: any) => {
-    // if (!/\d/.test(String(value))) {
-    //   return FIELD_ERROR.IS_NUMBER;
-    // }
-    // if (String(value).length < 8) {
-    //   return FIELD_ERROR.IS_SMALL;
-    // }
-    // if (/[!$@%#&]/.test(String(value))) {
-    //   return FIELD_ERROR.IS_SYMBOL;
-    // }
+  
     if (name === FIELD_NAME.EMAIL) {
       if (!REG_EXP_EMAIL.test(String(value))) {
         return FIELD_ERROR.EMAIL;
@@ -103,14 +92,17 @@ const SignUpPage: React.FC = () => {
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { name, value } = e.target;
-    setUser({
-      ...user,
+    
+    const errorMessage = validate(name, value);
+
+    setFormData({
+      ...formData,
       [name]: value,
     });
 
     setError({
       ...error,
-      [name]: "",
+      [name]: errorMessage,
     });
     //=============================================
 
