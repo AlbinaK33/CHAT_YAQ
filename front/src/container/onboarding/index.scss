@@ -24,6 +24,7 @@
     opacity: 0.7;
   }
 }
+
 @mixin page {
   margin: 0;
   background: linear-gradient(
@@ -38,6 +39,10 @@
   min-height: 100vh;
   gap: 96px;
   header {
+    position: sticky;
+    top:0;
+    z-index: 3;
+    border-radius: 0 0 24px 24px;
     box-sizing: border-box;
     display: flex;
     width: 100%;
@@ -128,6 +133,12 @@
       }
     }
     #logo {
+      div:first-child{
+        background-color: #232323;
+        width: 681.48px;
+        height: 639px;
+        border-radius: 24px;
+      }
       padding-top: 32px;
       width: 100%;
       display: flex;
@@ -225,9 +236,23 @@
     }
   }
 }
+
 .page {
+  .ua{
+    transition: opacity 1s ease-out;
+    opacity: 1 0%, 
+    0.8 50%,
+    0 100%;
+  }
+  .en{
+    transition:  1s ease-in-out;
+  }
   @include page;
+  background-color: #FFFFFF;
+  color:#000000;
   header {
+    background-color: #ffffff;
+
     .right {
       .log {
         #sign-up {
@@ -242,10 +267,16 @@
       }
     }
   }
+  .footerBox{
+    background-color: #232323;
+  }
 }
 .page-black {
   @include page;
+  background-color: #1e1e1e;
+  color:#ffffff;
   header {
+    background-color: rgb(30, 30, 30);
     .right {
       @include switches;
       
@@ -267,5 +298,8 @@
         color: #ffffff;
       }
     }
+  }
+  .footerBox{
+    background-color: #FAFAFA;  
   }
 }

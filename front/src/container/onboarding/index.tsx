@@ -2,9 +2,11 @@ import React, { useEffect, useMemo } from "react";
 import "./index.scss";
 import { useState } from "react";
 import SwitchTheme from "../../component/SwitchTheme";
-import { easeInOut, motion, useAnimation } from "framer-motion"
+import {
+  motion,
+  useAnimation,
+} from "framer-motion";
 import { useNavigate } from "react-router-dom";
-
 const OnboardingPage: React.FC = () => {
   const navigate = useNavigate();
   const [swithTheme, setSwithTheme] = useState(true);
@@ -75,107 +77,105 @@ const OnboardingPage: React.FC = () => {
       };
     }
   }, [language]);
-  useEffect(() => {}, [state]);
   const signUp = () => {
     navigate("/signup");
   };
-  const handleSwitchTheme = () => {
-    if (swithTheme) {
-      document.body.style.backgroundColor = "#1E1E1E";
-      document.body.style.color = "#FFFFFF";
-    } else {
-      document.body.style.backgroundColor = "#FFFFFF";
-      document.body.style.color = "#000000";
+  // const langVariants = {
+  //   start: {  transition: { ease: "easeOut", duration: 0.1 }, opacity:0 },
+  //   end: {  transition: {    duration: 0.1, ease: "easeIn" }, opacity:1},
+  // }
+
+  const textVariants = {
+    light: { x: 0, transition: { ease: "easeInOut", duration: 0.3 } },
+    dark: { x: -25, transition: { ease: "easeInOut", duration: 0.3 } }
+  };
+  const controls = useAnimation();
+  useEffect(() => {
+    if (!swithTheme) {
+      controls.start("dark");
+    } else if(swithTheme) {
+      controls.start("light");
     }
-};
-const textVariants = {
-  light: {  x: 0, transition: { behavior: easeInOut,  duration: 0.3 } },
-  dark: {  x:-25, transition: { behavior: easeInOut, duration: 0.3 } }
-};
-const showVariants = {
-  show:{ opacity: 1, transition: { duration: 0.3 } },
-  hide: { opacity: 0, transition: { duration: 0.3 } }
-};
-const controls = useAnimation();
-useEffect(() => {
-  if (swithTheme === false) {
-    controls.start('dark');
-  } else {
-    controls.start('light');
-  }
-}, [swithTheme, controls]);
-useEffect(() => {
-  if(showText){
-    controls.start('show');
-  }
-  else{
-    controls.start('hide');
-  }
-}, [showText,controls]);
+  }, [swithTheme, controls, language]);
+
   return (
-    <div className={swithTheme? "page": "page-black"}>
+    <div className={swithTheme ? "page" : "page-black"}>
       <header>
         <div className="left">
           <img
             style={{ width: "177px", height: "62px" }}
-            src={swithTheme? "/img/logo.png": "/img/logo2.png"}
+            src={swithTheme ? "/img/logo.png" : "/img/logo2.png"}
             alt="Logo"
           />
-          <a href="#logo"> {state?.aboutLogo}</a>
-          <a href="#values">{state?.aboutValues}</a>
+          {language==="ua"? <a className="ua" href="#logo">Про лого</a>: <a className="en" href="#logo"> Our logo</a>}
+          {language==="ua"? <a className="ua" href="#values">Наші цінності</a>: <a className="en" href="#values"> Our values</a>}
         </div>
         <div className="right">
-          <div className= "switches">
+          <div className="switches">
             <button
               id="ua"
-              style={language==="ua"? {
-                backgroundColor: "#E9FBEF",
-                color: "#1ED760",
-              }: {
-                backgroundColor: "rgba(0, 0, 0, 0)",
-                color: swithTheme?  "#000000": "#ffffff",
-              }}
+              style={
+                language === "ua"
+                  ? {
+                      backgroundColor: "#E9FBEF",
+                      color: "#1ED760",
+                    }
+                  : {
+                      backgroundColor: "rgba(0, 0, 0, 0)",
+                      color: swithTheme ? "#000000" : "#ffffff",
+                    }
+              }
               onClick={() => setLanguage("ua")}
             >
               UA
             </button>
             <button
               id="en"
-              style={language==="en"?{
-                backgroundColor: "#E9FBEF",
-                color: "#1ED760",
-              }: {
-                backgroundColor: "rgba(0, 0, 0, 0)",
-                color: swithTheme?  "#000000": "#ffffff",
-              } }
+              style={
+                language === "en"
+                  ? {
+                      backgroundColor: "#E9FBEF",
+                      color: "#1ED760",
+                    }
+                  : {
+                      backgroundColor: "rgba(0, 0, 0, 0)",
+                      color: swithTheme ? "#000000" : "#ffffff",
+                    }
+              }
               onClick={() => setLanguage("en")}
             >
               EN
             </button>
 
             <SwitchTheme
-              onChange={() => {setSwithTheme(!swithTheme); handleSwitchTheme()}}
+              onChange={() => {
+                setSwithTheme(!swithTheme);
+              }}
               isSwitchOn={swithTheme}
             />
           </div>
           <div className="log">
-            <button id="log-in">{state?.signUp}</button>
-            <button onClick={signUp} id="sign-up">
+            <motion.button id="log-in">{state?.signUp}</motion.button>
+            <motion.button onClick={signUp} id="sign-up">
               {state?.logIn}
-            </button>
+            </motion.button>
           </div>
         </div>
       </header>
       <main>
         <div className="intro">
           <div className="forStickerPlacing">
-            <img
+            <motion.img 
               className="sticker2"
               style={{ height: "158px", width: "191.95px" }}
               src={state?.sticker2}
               alt="стікер чат"
             />
-            <motion.div className="text" animate={controls} variants={textVariants}>
+            <motion.div
+              className="text"
+              animate={controls}
+              variants={textVariants}
+            >
               <h1 style={{ marginBottom: "24px" }}>
                 {" "}
                 <span style={{ color: "#1ED760" }}>
@@ -185,7 +185,7 @@ useEffect(() => {
               </h1>
               <p>{state?.description}</p>
             </motion.div>
-            <img
+            <motion.img 
               className="sticker1"
               style={{ height: "153.79px", width: "268.48px" }}
               src={state?.sticker1}
@@ -194,41 +194,57 @@ useEffect(() => {
           </div>
         </div>
         <div id="logo">
-          {(showText && (
-            <motion.div
-            animate={controls} variants={showVariants}
-              className={"text-about"}
-              style={{ width: "681.48px", height: "639px" }}
-              onClick={() => {
-                setShowText(false);
-              }}
-            >
-              <p>{state?.logoText[1]}</p>
-              <p>{state?.logoText[2]}</p>
-              <p>{state?.logoText[3]}</p>
-              <p>{state?.logoText[4]}</p>
-              <p>{state?.logoText[5]}</p>
-              <p>{state?.logoText[6]}</p>
-              <img src={state?.logoHeartSignature} alt="" />
-            </motion.div>
-          )) ||
-            (!showText && (
-              <img
-              onClick={()=>setShowText(true)}
-                style={{ width: "auto", height: "100%" }}
-                src="/img/Logo card.png"
-                alt="logo card"
-              />
-            ))}
+          <div>
+            {(showText && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className={"text-about"}
+                style={{ width: "681.48px", height: "639px" }}
+                onClick={() => {
+                  setShowText(false);
+                }}
+              >
+                <p>{state?.logoText[1]}</p>
+                <p>{state?.logoText[2]}</p>
+                <p>{state?.logoText[3]}</p>
+                <p>{state?.logoText[4]}</p>
+                <p>{state?.logoText[5]}</p>
+                <p>{state?.logoText[6]}</p>
+                <img src={state?.logoHeartSignature} alt="" />
+              </motion.div>
+            )) ||
+              (!showText && (
+                <motion.img
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  onClick={() => setShowText(true)}
+                  style={{ width: "auto", height: "100%" }}
+                  src="/img/Logo card.png"
+                  alt="logo card"
+                />
+              ))}
+          </div>
 
           <img
             className="sign"
             style={{ width: "325.89px", height: "287.16px" }}
-            src={swithTheme? state?.logoSignature: "/img/Group 1000004159.png"}
+            src={
+              swithTheme ? state?.logoSignature : "/img/Group 1000004159.png"
+            }
             alt="Чому YAQ? Натискай картинку і дізнаєшся"
           />
         </div>
-        <div id="values" style={swithTheme? {backgroundColor: "#FFFFFF"}: {backgroundColor: "rgba(255, 255, 255, 0.1)"}}>
+        <motion.div 
+          id="values"
+          style={
+            swithTheme
+              ? { backgroundColor: "#FFFFFF" }
+              : { backgroundColor: "rgba(255, 255, 255, 0.1)" }
+          }
+        >
           <h2>{state?.aboutValues}</h2>
           <div className="list">
             <div>
@@ -248,10 +264,12 @@ useEffect(() => {
               <p>{state?.valuesList[4]}</p>
             </div>
           </div>
-        </div>
+        </motion.div>
       </main>
       <footer>
-        <div className="footerBox" style={swithTheme? {backgroundColor: "#232323"}: {backgroundColor: "rgba(255, 255, 255, 0.1)"}}>
+        <div
+          className="footerBox"
+        >
           <div className="footerLeft">
             <img
               style={{ width: "177px", height: "62px" }}
@@ -260,11 +278,11 @@ useEffect(() => {
               alt="logo"
             />
             <div className="values">
-              <a href="#logo">{state?.aboutLogo}</a>
+              {<a  href="#logo">About logo</a>}
               <a href="#values">{state?.aboutValues}</a>
             </div>
             <div className="social">
-              <p>{state?.socialSignature}</p>
+              <motion.p>{state?.socialSignature}</motion.p>
               <div style={{ display: "flex", gap: "12px" }}>
                 <a href="#">
                   <img
