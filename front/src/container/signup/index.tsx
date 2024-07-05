@@ -6,6 +6,7 @@ import "./signup.scss";
 import Divider from "../../component/divider";
 import SocialLogin from "../../component/socialLogin";
 import FieldPassword from "../../component/field-password";
+import FieldEmail from "../../component/field-email";
 
 export const REG_EXP_EMAIL = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/);
 export const REG_EXP_PASSWORD = new RegExp(
@@ -19,9 +20,9 @@ const FIELD_NAME = {
 };
 
 const FIELD_ERROR = {
-  IS_SMALL: "Мінімум 8 символів",
-  IS_NUMBER: "Містить принаймні одну цифру",
-  IS_SYMBOL: "Без спеціальних символів (!$@%#&)",
+  // IS_SMALL: "Мінімум 8 символів",
+  // IS_NUMBER: "Містить принаймні одну цифру",
+  // IS_SYMBOL: "Без спеціальних символів (!$@%#&)",
 
   EMAIL: "Переконайтеся, що ви ввели свою електронну адресу правильно",
   PASSWORD:
@@ -36,6 +37,11 @@ const SignUpPage: React.FC = () => {
   const calculateIsFormValid = (errors: any) => {
     return Object.values(errors).every((error) => error === "");
   };
+
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
   
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -69,19 +75,19 @@ const SignUpPage: React.FC = () => {
   const passwordRequirements = [
     {text: "Мінімум 8 символів", isMet: formData[FIELD_NAME.PASSWORD].length >= 8},
     {text: "Містить принаймні одну цифру", isMet: /\d/.test(formData[FIELD_NAME.PASSWORD]) },
-    {text: "Без спеціальних символів (!$@%#&)", isMet: !/[!@$%^&*]/.test(formData[FIELD_NAME.PASSWORD]) },
+    {text: "Без спеціальних символів (!$@%#&)", isMet: !/[!@$%#^&*]/.test(formData[FIELD_NAME.PASSWORD]) },
   ]
 
   const validate = (name: string, value: any) => {
-    if (!/\d/.test(String(value))) {
-      return FIELD_ERROR.IS_NUMBER;
-    }
-    if (String(value).length < 8) {
-      return FIELD_ERROR.IS_SMALL;
-    }
-    if (/[!$@%#&]/.test(String(value))) {
-      return FIELD_ERROR.IS_SYMBOL;
-    }
+    // if (!/\d/.test(String(value))) {
+    //   return FIELD_ERROR.IS_NUMBER;
+    // }
+    // if (String(value).length < 8) {
+    //   return FIELD_ERROR.IS_SMALL;
+    // }
+    // if (/[!$@%#&]/.test(String(value))) {
+    //   return FIELD_ERROR.IS_SYMBOL;
+    // }
     if (name === FIELD_NAME.EMAIL) {
       if (!REG_EXP_EMAIL.test(String(value))) {
         return FIELD_ERROR.EMAIL;
@@ -97,14 +103,19 @@ const SignUpPage: React.FC = () => {
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    const errorMess = validate(name, value);
-    setError({ ...error, [name]: errorMess });
+    setUser({
+      ...user,
+      [name]: value,
+    });
+
+    setError({
+      ...error,
+      [name]: "",
+    });
     //=============================================
 
     const newIsFormValid = calculateIsFormValid({
       ...error,
-      [name]: errorMess,
     });
     setIsFormValid(newIsFormValid);
   };
@@ -170,8 +181,14 @@ const SignUpPage: React.FC = () => {
         <input name="firstname" id="firstname" type="text" placeholder="Введіть ваше ім’я" />
         </div>
         <div className="field">
-          <label htmlFor="email">Електронна адреса</label>
-        <input name="email" id="email" type="email" placeholder="Введіть вашу електронну адресу" />
+
+        <FieldEmail
+        label="Електронна адреса" 
+        onChange={handleChange}
+        value={user.email}
+        error={error.email}
+        placeholder="Введіть вашу електронну адресу"
+        />
         </div>
         
         <FieldPassword
