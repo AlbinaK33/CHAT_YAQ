@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 
 import "./field-password.scss"
 
@@ -10,7 +11,7 @@ interface Requirement {
 interface PasswordProps {
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    error: string;
+    error?: string;
     requirements?: Requirement[];
     showPassword: boolean;
     placeholder: string;
@@ -29,22 +30,44 @@ const FieldPassword: React.FC<PasswordProps> = ({
     placeholder,
     label,
 }) => {
+
+    const [isFocused, setIsFocused] = useState(false);
+
+    const handleFocus = () => {
+        setIsFocused(true);
+    };
+
+    const handleBlur = () => {
+        if (value === "") {
+            setIsFocused(false)
+        }
+    };
+
+    const handleClear = () => {
+        onChange({ target: { name:label.toLowerCase(), value: ""} } as React.ChangeEvent<HTMLInputElement>)
+    };
+
+    const showError = !requirements && error;
+    const inputClassName = `field__input ${showError ? "input--error" : ""} ${requirements ? "input--no-error" : ""}`
+
     return (
         <div>
             <div className="field">
           <label className="field__label">{label}</label>
         <input
-        className={`field__input ${error ? "input--error" : ""}`} 
+        className={inputClassName} 
         name="password" 
         value={value} 
         type={showPassword ? "text" : "password"} placeholder={placeholder} 
         onChange={onChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         />
-        <span className={`field__icon ${showPassword ? "show" : ""}`}
+        <span className={`field__icon hide ${showPassword ? "show" : ""} `}
         onClick={onTogglePassword}></span>
         </div>
         <div>
-        { requirements ? (
+        { requirements && isFocused ? (
             <div className="password-requirements">
             {requirements.map((req, index) => (
                 <div key={index} className="requirement">
@@ -54,7 +77,7 @@ const FieldPassword: React.FC<PasswordProps> = ({
             ))}
         </div>
         ) : (
-            error && (
+            showError && (
                 <div className="block__error">
                 <img className="icon-error" src="./svg/danger.svg" alt="error" />
                 <p><span className="form__error" id="passwordError">  {error}</span></p>

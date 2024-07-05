@@ -6,8 +6,14 @@ import "./signin.scss";
 import Divider from "../../component/divider";
 import SocialLogin from "../../component/socialLogin";
 import FieldPassword from "../../component/field-password";
+import FieldEmail from "../../component/field-email";
 
 
+
+export const REG_EXP_EMAIL = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/);
+export const REG_EXP_PASSWORD = new RegExp(
+  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
+);
 
 const FIELD_NAME = {
   EMAIL: "email",
@@ -56,14 +62,40 @@ const SignInPage: React.FC = () => {
       [name]: value,
     });
 
+    let errorMessage = "";
+
+    switch(name) {
+      case FIELD_NAME.EMAIL:
+        errorMessage = value === "" ? "" : (!REG_EXP_EMAIL.test(value) ? FIELD_ERROR.EMAIL : "");
+        break;
+        case FIELD_NAME.PASSWORD:
+          errorMessage = value === "" ? "" : (!REG_EXP_PASSWORD.test(value) ? FIELD_ERROR.PASSWORD : "");
+          break;
+      default:
+        break;
+    }
+
     setError({
       ...error,
-      [name]: "",
+      [name]: errorMessage,
     });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!REG_EXP_PASSWORD.test(user.password)) {
+      setError({
+        ...error,
+        [FIELD_NAME.PASSWORD]: FIELD_ERROR.PASSWORD,
+      });
+      return;
+    }
+
+    if(calculateIsFormValid(error)) {
+      return;
+    }
+
 
 
     try {
@@ -103,14 +135,21 @@ const SignInPage: React.FC = () => {
       </aside>
       <section className="page__section form__section">
         <form className="form__container" onSubmit={handleSubmit}>
-        <h2 className="title">Увійти</h2>       
+        <h2 className="title">Увійти</h2>   
+
         
         <div className="field">
-          <label htmlFor="email">Електронна адреса</label>
-        <input name="email" id="email" type="email" placeholder="Введіть вашу електронну адресу" />
+
+        <FieldEmail
+        label="Електронна адреса" 
+        onChange={handleChange}
+        value={user.email}
+        error={error.email}
+        placeholder="Введіть вашу електронну адресу"
+        />
         </div>
+
         <div className="field">
-          
 
         <FieldPassword
             label={"Пароль"}
@@ -122,12 +161,6 @@ const SignInPage: React.FC = () => {
             placeholder="Введіть ваш пароль"
           />
 
-          {error.password && (
-            <div className="block__error">
-              <img src="path/to/danger-icon.svg" alt="danger" className="icon-error" />
-              <span className="form__error">{error.password}</span>
-            </div>
-          )}
 
         <section className="recovery">
         <span className="text--small">
