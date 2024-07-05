@@ -1,225 +1,305 @@
-.page {
-    margin: 0;
-    padding: 0;
-    background: radial-gradient( rgba(30, 215, 96, 0.4) 0%, rgba(165, 239, 191, 0.2) 50%, rgba(165, 239, 191, 0.1) 100%);  
+@font-face {
+  font-family: "KyivTypeSans-Regular";
+  src: url("../../fonts/kyivtypesans/OTF/KyivTypeSans-Regular-.otf")
+    format("opentype");
+}
 
-    
+@mixin switches {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  #en,
+  #ua {
+    width: 44px;
+    height: 44px;
+    border-radius: 24px;
+  }
+  #en {
+    margin-right: 8px;
+  }
+}
+@mixin hover-button {
+  transition: 0.3s ease-in-out;
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+@mixin page {
+  margin: 0;
+  background: linear-gradient(
+    rgba(30, 215, 96, 0) 25%,
+    rgba(30, 215, 96, 0.2) 50%,
+    rgba(165, 239, 191, 0) 100%
+  );
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  gap: 96px;
+  header {
+    position: sticky;
+    top:0;
+    z-index: 3;
+    border-radius: 0 0 24px 24px;
+    box-sizing: border-box;
     display: flex;
-    flex-direction: column;
     width: 100%;
-    min-height: 100vh;
-
-    gap:108px;
-    header {
-      box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    .left,
+    .right {
       display: flex;
-      width: 100%;
-      justify-content: space-between;
-     justify-content: space-between;
       align-items: center;
-      padding: 0 2vw;
-      .left,
-      .right {
-        display: flex;
-        align-items: center;
-      }
-      .right {
-        .log,
-        .switches {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          
-        }
-
-
-        
-
-        .switches {
-          gap:0.3rem;
-          padding: 0 0.3rem;
-          #ua,
-          #en {
-            padding: 0.3rem;
-            border-radius: 24px;
-            background-color: rgba(0, 0, 0, 0);
-            border: none;
-            font-size: 500;
-          }
-          #en {
-            margin: 0.4vw;
-          }
-          .toggle-btn {
-            background-color: #efefef;
-          }
-        }
-        .log {
-          button {
-            border-radius: 8px;
-            padding: 0.6rem 2rem;
-            border: solid 1px #000000;
-          }
-          #log-in {
-            background-color: rgba(0, 0, 0, 0);
-            margin-right: 0.6vw;
-          }
-          #sign-up {
-            background-color: #000000;
-            color: #ffffff;
-          }
+    }
+    .right {
+      gap: 40px;
+      .switches {
+        gap: 0.3rem;
+        @include switches;
+        .toggle-btn {
+          background-color: #efefef;
         }
       }
-      .left {
-        a {
-          text-decoration: none;
-          color: #000000;
-          margin: 0 3vw;
+      .log {
+        button {
+          border-radius: 8px;
+          padding: 12px 24px;
+          border: solid 1px #000000;
+        }
+
+        #log-in {
+          background-color: rgba(0, 0, 0, 0);
+          margin-right: 8px;
+          @include hover-button;
+        }
+        #sign-up {
+          @include hover-button;
         }
       }
     }
-    main{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
 
-      gap: 108px;
-      .intro{
-
-        margin-top:108px;
-          align-items: center;
-          display: flex;
-          flex-direction: row;
-          text-align: center;
-          .forStickerPlacing{
-            display: flex;
-             justify-content: center;
-          .text  {
-            display: flex;
-            margin:0;
-            flex-direction: column;
-            align-items: center;
-            width:40%;
-            font-size: 24px;
-            width:50%;
-            p{
-              font-size: 24px;
-              line-height: 32px;
-            }
-            h1{
-              font-size: 72px;
-              line-height: 80px;
-              font-weight: bold;
-            }
-          }
-          .sticker2{
-             align-self:center; 
-          }
-          .sticker1{
-             align-self: flex-start;
-            margin-top: -100px;
-            margin-left: -100px;
-          }
-          }
-          
-      }
-      #logo{
-        padding-top: 32px;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        .sign{
-          box-sizing: content-box;
-          padding-top: 160px;
-          position: absolute;
-          right: 5vw;
-        }
-        img:first-child{
-            &:hover{
-              cursor: pointer;
-            }
-        }
-        .text-about{
-          padding: 32px;
-          display: flex;
-          background-color: #232323;
-          
-          flex-direction: column;
-          align-items: center;
-          gap: 0;
-          color:#FAFAFA;
-          border-radius: 24px;
-          &:hover{
-            cursor: pointer;
-          }
-          h2{
-            font-size: 32px;
-            font-weight: bold;
-          }
-          p{
-            font-size: 16px;
-            font-weight: 300;
-            line-height: 24px;
-            padding-bottom: 16px;
-          }
-        }
-        
-      }
-      
-      #values{
-        h2{
-          font-size: 32px;
-          font-weight: bold;
-        }
-        margin: 32px;
-        .list{
-          margin-top: 32px;
-          display: flex;
-          gap:24px;
-          div{
-            width: 80%;
-            p{
-              padding-top:12px;
-              line-height: 28px;
-               font-size: 20px;
-              font-weight:300;
-            }
-            
-          }
-        }
-      }
-    }
-    footer{
-      .footerBox{
-        display: flex;
-        flex-direction: column;
-        background-color: #232323;
-        border-radius: 56px 56px 0 0;
-        padding: 32px 64px;       
-        color:#FAFAFA;
-        .footerLeft{
-          display: flex;
-        justify-content: space-between;
-        width: 40%;
-        a {
-          text-decoration: none;
-          color:#FAFAFA;
-        }
-        .values{
-          display: flex;
-          flex-direction: column;
-          gap:8px;
-          a{
-            margin: 8px 0;
-          } 
-        }
-        .social{
-          display: flex;
-          flex-direction: column;
-          gap:16px;
-        }
-      }
+    .left {
+      gap: 40px;
+      a {
+        text-decoration: none;
       }
     }
   }
-  
+  main {
+    gap: 96px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .intro {
+      margin-top: 60px;
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      text-align: center;
+      .forStickerPlacing {
+        display: flex;
+        justify-content: center;
+        .text {
+          display: flex;
+          margin: 0;
+          flex-direction: column;
+          align-items: center;
+          width: 40%;
+          font-size: 24px;
+          width: 50%;
+          p {
+            font-size: 24px;
+            line-height: 32px;
+          }
+          h1 {
+            font-size: 72px;
+            line-height: 80px;
+            font-weight: bold;
+          }
+        }
+        .sticker2 {
+          align-self: center;
+        }
+        .sticker1 {
+          align-self: flex-start;
+          margin-top: -100px;
+          margin-left: -100px;
+        }
+      }
+    }
+    #logo {
+      div:first-child{
+        background-color: #232323;
+        width: 681.48px;
+        height: 639px;
+        border-radius: 24px;
+      }
+      padding-top: 32px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      .sign {
+        box-sizing: content-box;
+        padding-top: 160px;
+        position: absolute;
+        right: 5vw;
+      }
+      img:first-child {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      .text-about {
+        padding: 32px;
+        display: flex;
+        background-color: #232323;
+
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        color: #fafafa;
+        border-radius: 24px;
+        &:hover {
+          cursor: pointer;
+        }
+        h2 {
+          font-size: 32px;
+          font-weight: bold;
+        }
+        p {
+          font-size: 16px;
+          font-weight: 300;
+          line-height: 24px;
+          padding-bottom: 16px;
+        }
+      }
+    }
+
+    #values {
+      border-radius: 24px;
+      padding: 32px;
+      h2 {
+        font-size: 32px;
+        font-weight: bold;
+      }
+      .list {
+        margin-top: 32px;
+        display: flex;
+        gap: 24px;
+        div {
+          width: 314px;
+          p {
+            padding-top: 12px;
+            line-height: 28px;
+            font-size: 20px;
+            font-family: "KyivTypeSans-Regular";
+          }
+        }
+      }
+    }
+  }
+  footer {
+    .footerBox {
+      display: flex;
+      flex-direction: column;
+      background-color: #232323;
+      border-radius: 56px 56px 0 0;
+      padding: 56px 56px 42px 56px;
+      color: #fafafa;
+      .footerLeft {
+        display: flex;
+        gap: 56px;
+        a {
+          text-decoration: none;
+          color: #fafafa;
+        }
+        .values {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          a {
+            margin: 8px 0;
+          }
+        }
+        .social {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+      }
+    }
+  }
+}
+
+.page {
+  .ua{
+    transition: opacity 1s ease-out;
+    opacity: 1 0%, 
+    0.8 50%,
+    0 100%;
+  }
+  .en{
+    transition:  1s ease-in-out;
+  }
+  @include page;
+  background-color: #FFFFFF;
+  color:#000000;
+  header {
+    background-color: #ffffff;
+
+    .right {
+      .log {
+        #sign-up {
+          background-color: #000000;
+          color: #ffffff;
+        }
+      }
+    }
+    .left {
+      a {
+        color: #000000;
+      }
+    }
+  }
+  .footerBox{
+    background-color: #232323;
+  }
+}
+.page-black {
+  @include page;
+  background-color: #1e1e1e;
+  color:#ffffff;
+  header {
+    background-color: rgb(30, 30, 30);
+    .right {
+      @include switches;
+      
+      .log {
+        #log-in {
+          border: solid 1px #ffffff;
+          color: #ffffff;
+        }
+        #sign-up {
+          @include hover-button;
+          border: solid 1px #ffffff;
+          background-color: #ffffff;
+          color: #000000;
+        }
+      }
+    }
+    .left {
+      a {
+        color: #ffffff;
+      }
+    }
+  }
+  .footerBox{
+    background-color: #FAFAFA;  
+  }
+}
