@@ -43,9 +43,7 @@ const FieldPassword: React.FC<PasswordProps> = ({
         }
     };
 
-    const handleClear = () => {
-        onChange({ target: { name:label.toLowerCase(), value: ""} } as React.ChangeEvent<HTMLInputElement>)
-    };
+   
 
     const showError = !requirements && error;
     const inputClassName = `field__input ${showError ? "input--error" : ""} ${requirements ? "input--no-error" : ""}`
