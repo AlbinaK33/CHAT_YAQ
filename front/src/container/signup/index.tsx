@@ -35,11 +35,7 @@ const SignUpPage: React.FC = () => {
     return Object.values(errors).every((error) => error === "");
   };
 
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
-  
+ 
   const [isFormValid, setIsFormValid] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -122,7 +118,7 @@ const SignUpPage: React.FC = () => {
       try {
         const {email, password} = formData;
 
-        const res = await fetch("http://localhost:9999/api/auth/login", {
+        const res = await fetch("http://localhost:9999/api/auth/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -130,7 +126,7 @@ const SignUpPage: React.FC = () => {
           body: JSON.stringify({ email, password }),
           });
 
-          const data = await res.json();
+          // const data = await res.json();
 
           //-----------
 
@@ -177,7 +173,7 @@ const SignUpPage: React.FC = () => {
         <FieldEmail
         label="Електронна адреса" 
         onChange={handleChange}
-        value={user.email}
+        value={formData.email}
         error={error.email}
         placeholder="Введіть вашу електронну адресу"
         />

@@ -22,12 +22,13 @@ const FieldEmail: React.FC<EmailProps> = ({
 
 
 
+
     const handleClear = () => {
         onChange({ target: { name: "email", value: ''} } as React.ChangeEvent<HTMLInputElement>)
     };
 
    
-    const inputClassName = `field__input ${error ? "input--error" : ""}`
+    const inputClassName = `field__input ${error && value  ? "input--error" : ""}`
 
     return (
         <div>
@@ -45,7 +46,7 @@ const FieldEmail: React.FC<EmailProps> = ({
         </div>
         <div>
         { 
-            error && (
+            error && value && (
                 <div className="block__error">
                 <img className="icon-error" src="./svg/danger.svg" alt="error" />
                 <p><span className="form__error" id="emailError">  {error}</span></p>
