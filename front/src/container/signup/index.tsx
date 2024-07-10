@@ -7,6 +7,7 @@ import Divider from "../../component/divider";
 import SocialLogin from "../../component/socialLogin";
 import FieldPassword from "../../component/field-password";
 import FieldEmail from "../../component/field-email";
+import FieldName from "../../component/field-name";
 
 export const REG_EXP_EMAIL = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/);
 export const REG_EXP_PASSWORD = new RegExp(
@@ -15,6 +16,8 @@ export const REG_EXP_PASSWORD = new RegExp(
 
 
 const FIELD_NAME = {
+  NAME: "name",
+  NICKNAME: "nickname",
   EMAIL: "email",
   PASSWORD: "password",
 };
@@ -39,11 +42,14 @@ const SignUpPage: React.FC = () => {
   const [isFormValid, setIsFormValid] = useState(false);
 
   const [formData, setFormData] = useState({
+    [FIELD_NAME.NAME]: "",
+    [FIELD_NAME.NICKNAME]: "",
     [FIELD_NAME.EMAIL]: "",
     [FIELD_NAME.PASSWORD]: "",
   });
 
   const [error, setError] = useState({
+    [FIELD_NAME.NICKNAME]: "",
     [FIELD_NAME.EMAIL]: "",
     [FIELD_NAME.PASSWORD]: "",
   })
@@ -56,10 +62,13 @@ const SignUpPage: React.FC = () => {
 
   const clearForm = () => {
     setFormData({
+      [FIELD_NAME.NAME]: "",
+      [FIELD_NAME.NICKNAME]: "",
       [FIELD_NAME.EMAIL]: "",
       [FIELD_NAME.PASSWORD]: "",
     });
     setError({
+      [FIELD_NAME.NICKNAME]: "",
       [FIELD_NAME.EMAIL]: "",
       [FIELD_NAME.PASSWORD]: "",
     });
@@ -165,11 +174,16 @@ const SignUpPage: React.FC = () => {
         <Divider/>
         
         <div className="field">
-          <label htmlFor="firstname">Ім'я</label>
-        <input name="firstname" id="firstname" type="text" placeholder="Введіть ваше ім’я" />
+        <FieldName 
+          label="Ім'я"
+          onChange={handleChange}
+          value={formData.name}
+          placeholder="Введіть ваше ім’я"
+          />
         </div>
-        <div className="field">
 
+
+        <div className="field">
         <FieldEmail
         label="Електронна адреса" 
         onChange={handleChange}
