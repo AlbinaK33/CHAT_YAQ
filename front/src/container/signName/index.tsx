@@ -1,15 +1,85 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 
 import "../../global.scss"
 import "./signName.scss";
+import FieldNickname from "../../component/field-nickname";
+
+
+export const REG_EXP_NICKNAME = new RegExp(/^[A-Za-z0-9]+([A-Za-z0-9]*|[._-]?[A-Za-z0-9]+)*$/);
+
+const FIELD_NAME = {
+  NICKNAME: "nickname",
+};
+
+const FIELD_ERROR = {
+
+  NICKNAME: "Цей нікнейм використовується. Спробуйте інший",
+};
 
 
 
 const SignNamePage: React.FC = () => {
   //   const authContext = useContext(AuthContext);
-  //   const navigate = useNavigate();
+
+
+  // const navigate = useNavigate()
+
+  const calculateIsFormValid = (errors: any) => {
+    return Object.values(errors).every((error) => error === "");
+  };
+
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  const [formData, setFormData] = useState({
+    [FIELD_NAME.NICKNAME]: "",
+  });
+
+  const [error, setError] = useState({
+    [FIELD_NAME.NICKNAME]: "",
+  })
+
+  const clearForm = () => {
+    setFormData({
+      [FIELD_NAME.NICKNAME]: "",
+    });
+    setError({
+      [FIELD_NAME.NICKNAME]: "",
+    });
+  };
+
+  const validate = (name: string, value: any) => {
+  
+    if (name === FIELD_NAME.NICKNAME) {
+      if (!REG_EXP_NICKNAME.test(String(value))) {
+        return FIELD_ERROR.NICKNAME;
+      }
+    }
+    return "";
+  };
+
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const { name, value } = e.target;
+    
+    const errorMessage = validate(name, value);
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+
+    setError({
+      ...error,
+      [name]: errorMessage,
+    });
+    //=============================================
+
+    const newIsFormValid = calculateIsFormValid({
+      ...error,
+    });
+    setIsFormValid(newIsFormValid);
+  };
 
   return (
     <div className="page--sign-in">
@@ -35,8 +105,9 @@ const SignNamePage: React.FC = () => {
         </p>
         </div>
         <div className="field">
-          <label htmlFor="nickname">Нікнейм</label>
-        <input name="nickname" id="nickname" type="text" placeholder="Введіть ваш @нікнейм" />
+
+          <FieldNickname label="Нікнейм" placeholder="Введіть ваш @нікнейм" onChange={handleChange} value={formData.nickname} />
+
         </div>
         
         <div className="privacy-policy">
