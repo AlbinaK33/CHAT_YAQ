@@ -38,6 +38,12 @@
       background-color: inherit;
       border: inherit;
     }
+
+    .blocks {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
   
     .block__error {
       display: flex;
@@ -59,10 +65,38 @@
     }
   
     .icon-error {
-      width: 16px;
-      height: 16px;
+      width: 24px;
+      height: 24px;
       margin-right: 4px;
     }
   
 
- 
+    .suggestions {
+      display: flex;
+      gap: 8px;
+      margin-left: 28px;
+      margin-top: 10px;
+      color: #A2A2A2;
+      font-weight: 200;
+    }
+
+
+    .available-nickname {
+      cursor: pointer;
+      color: #0E0E0E;
+      font-weight: 500;
+
+      &:hover {
+        color: #404040;
+        font-weight: 300;
+      }
+  
+      &:focus {
+        color: #010101;
+        font-weight: 50;
+      }
+  
+      &:disabled {
+        color: #A2A2A2;
+      }
+    }
