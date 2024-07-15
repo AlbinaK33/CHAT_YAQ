@@ -179,7 +179,7 @@ const SignInPage: React.FC = () => {
 
         <p className="text--small">
         Не маєте облікового запису?
-        <a className="link" href="/">{" "}Зареєструватися</a>
+        <a className="link" href="/signup">{" "}Зареєструватися</a>
         </p>
         </div>
 
