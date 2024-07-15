@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import "./field-password.scss"
 
@@ -31,6 +31,24 @@ const FieldPassword: React.FC<PasswordProps> = ({
     label,
 }) => {
 
+
+    useEffect(() => {
+        const inputs = document.querySelectorAll('.field .field__input');
+      
+        inputs.forEach(input => {
+            const handleCaretFocus = () => input.classList.add('caret');
+            const handleCaretBlur = () => input.classList.remove('caret');
+          
+            input.addEventListener('focus', handleCaretFocus);
+            input.addEventListener('blur', handleCaretBlur);
+
+            return () => {
+                input.removeEventListener('focus', handleCaretFocus);
+                input.removeEventListener('blur', handleCaretBlur);
+            };
+        });
+    }, []);
+
     const [isFocused, setIsFocused] = useState(false);
 
     const handleFocus = () => {
@@ -48,43 +66,47 @@ const FieldPassword: React.FC<PasswordProps> = ({
     const showError = !requirements && error;
     const inputClassName = `field__input ${showError ? "input--error" : ""} ${requirements ? "input--no-error" : ""}`
 
-    return (
-        <div>
-            <div className="field">
-          <label className="field__label">{label}</label>
-        <input
-        className={inputClassName} 
-        name="password" 
-        value={value} 
-        type={showPassword ? "text" : "password"} placeholder={placeholder} 
-        onChange={onChange}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        />
-        <span className={`field__icon hide ${showPassword ? "show" : ""} `}
-        onClick={onTogglePassword}></span>
-        </div>
-        <div>
-        { requirements && isFocused ? (
-            <div className="password-requirements">
-            {requirements.map((req, index) => (
-                <div key={index} className="requirement">
-                <img src={req.isMet ? "./svg/requirement-success.svg" : "./svg/requirement-error.svg"} alt={req.isMet ? "Success" : "Error"} />
-                <span>{req.text}</span>
-            </div>
-            ))}
-        </div>
-        ) : (
-            showError && (
-                <div className="block__error">
-                <img className="icon-error" src="./svg/danger.svg" alt="error" />
-                <p><span className="form__error" id="passwordError">  {error}</span></p>
+        return (
+            <div>
+                <div className="field">
+                    <label className="field__label">{label}</label>
+                    <div className={`password-wrapper ${showPassword ? "show-password" : ""}`}>
+
+                        <input
+                        className={inputClassName} 
+                        name="password" 
+                        value={value} 
+                        type={showPassword ? "text" : "password"} placeholder={placeholder} 
+                        onChange={onChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                        data-show-password={showPassword}
+                        />
+                        <span className={`field__icon hide ${showPassword ? "show" : ""} `}
+                        onClick={onTogglePassword}></span>
+                    </div>
                 </div>
-            )
-        )}
-        </div>
-        
-        </div>
+                <div>
+                    { requirements && isFocused ? (
+                        <div className="password-requirements">
+                            {requirements.map((req, index) => (
+                                <div key={index} className="requirement">
+                                    <img src={req.isMet ? "./svg/requirement-success.svg" : "./svg/requirement-error.svg"} alt={req.isMet ? "Success" : "Error"} />
+                                    <span>{req.text}</span>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        showError && (
+                            <div className="block__error">
+                                <img className="icon-error" src="./svg/danger.svg" alt="error" />
+                                <p><span className="form__error" id="passwordError">  {error}</span></p>
+                            </div>
+                        )
+                    )}
+                </div>
+            
+            </div>
     )
 }
 
