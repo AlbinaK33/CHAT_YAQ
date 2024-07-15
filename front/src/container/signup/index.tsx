@@ -209,7 +209,7 @@ const SignUpPage: React.FC = () => {
       <div className="signin">
         <p className="text--small">
         У вас є обліковий запис?
-        <a className="link" href="/">{" "}Увійти</a>
+        <a className="link" href="/signin">{" "}Увійти</a>
         </p>
       </div>
       </section>
