@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import "./field-password.scss"
 
@@ -21,7 +20,7 @@ interface PasswordProps {
 }
 
 const FieldPassword: React.FC<PasswordProps> = ({
-    value, 
+    value,
     onChange,
     error,
     requirements,
@@ -29,25 +28,34 @@ const FieldPassword: React.FC<PasswordProps> = ({
     onTogglePassword,
     placeholder,
     label,
-}) => {
+  }) => {
 
+      const inputRef = useRef<HTMLInputElement>(null);
+      const cursorRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const inputs = document.querySelectorAll('.field .field__input');
-      
-        inputs.forEach(input => {
-            const handleCaretFocus = () => input.classList.add('caret');
-            const handleCaretBlur = () => input.classList.remove('caret');
-          
-            input.addEventListener('focus', handleCaretFocus);
-            input.addEventListener('blur', handleCaretBlur);
 
-            return () => {
-                input.removeEventListener('focus', handleCaretFocus);
-                input.removeEventListener('blur', handleCaretBlur);
-            };
-        });
-    }, []);
+        const input = inputRef.current;
+        const cursor = cursorRef.current;
+
+    if(input && cursor) {
+        const handleKeyUp = (e: KeyboardEvent) => {
+            const {selectionStart} = input;
+            const leftPos = selectionStart ? selectionStart * 12 : 0; 
+            cursor.style.left = `${leftPos}px`;
+
+            const offset = 10; 
+            cursor.style.left = `${leftPos + offset}px`;
+        }
+
+        input.addEventListener("keyup", handleKeyUp);
+
+      return () => {
+        input.removeEventListener("keyup", handleKeyUp);
+      };
+    }
+    }, [])
+   
 
     const [isFocused, setIsFocused] = useState(false);
 
@@ -81,9 +89,12 @@ const FieldPassword: React.FC<PasswordProps> = ({
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                         data-show-password={showPassword}
+                        ref={inputRef}
                         />
                         <span className={`field__icon hide ${showPassword ? "show" : ""} `}
-                        onClick={onTogglePassword}></span>
+                        onClick={onTogglePassword}>
+                        </span>
+                        <div className="cursor" ref={cursorRef}></div>
                     </div>
                 </div>
                 <div>
