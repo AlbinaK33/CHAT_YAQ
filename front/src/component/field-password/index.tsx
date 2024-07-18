@@ -19,6 +19,18 @@ interface PasswordProps {
     
 }
 
+function debounce<T extends (...args: any[]) => any>(func: T, wait: number): (...args: Parameters<T>) => void {
+    let timeout: NodeJS.Timeout | null;
+    return function(this: any, ...args: Parameters<T>) {
+        if (timeout) {
+            clearTimeout(timeout);
+        }
+        timeout = setTimeout(() => {
+            func.apply(this, args);
+        }, wait);
+    };
+}
+
 const FieldPassword: React.FC<PasswordProps> = ({
     value,
     onChange,
@@ -32,32 +44,64 @@ const FieldPassword: React.FC<PasswordProps> = ({
 
       const inputRef = useRef<HTMLInputElement>(null);
       const cursorRef = useRef<HTMLDivElement>(null);
+      const measureRef = useRef<HTMLSpanElement>(null);
+
+      const [isFocused, setIsFocused] = useState(false);
+      const [isTyping, setIsTyping] = useState(false);
 
     useEffect(() => {
 
         const input = inputRef.current;
         const cursor = cursorRef.current;
+        const measure = measureRef.current;
 
-    if(input && cursor) {
-        const handleKeyUp = (e: KeyboardEvent) => {
+        const cursorPosition = debounce(() => {
+            if(input && cursor) {
             const {selectionStart} = input;
             const leftPos = selectionStart ? selectionStart * 12 : 0; 
             cursor.style.left = `${leftPos}px`;
 
             const offset = 10; 
             cursor.style.left = `${leftPos + offset}px`;
+            }
+        }, 50)
+
+    if(input && cursor) {
+
+        const handleKeyDown = (e: KeyboardEvent) => {
+            cursor.style.display = "inline-block";
         }
 
-        input.addEventListener("keyup", handleKeyUp);
+        const handleKeyUp = (e: KeyboardEvent) => {
+            cursorPosition(); 
+        }
 
-      return () => {
-        input.removeEventListener("keyup", handleKeyUp);
-      };
-    }
+        const handleCursorFocus = () => {
+            setIsFocused(true);
+            cursor.style.display = "inline-block";
+          };
+    
+          const handleCursorBlur = () => {
+            setIsFocused(false);
+            cursor.style.display = "none"; 
+          };
+
+          input.addEventListener("keydown", handleKeyDown);
+          input.addEventListener("keyup", handleKeyUp);
+          input.addEventListener("focus", handleCursorFocus);
+          input.addEventListener("blur", handleCursorBlur);
+
+        return () => {
+            input.removeEventListener("keydown", handleKeyDown);
+            input.removeEventListener("keyup", handleKeyUp);
+            input.removeEventListener("focus", handleCursorFocus);
+            input.removeEventListener("blur", handleCursorBlur);
+    };
+}
     }, [])
    
 
-    const [isFocused, setIsFocused] = useState(false);
+    
 
     const handleFocus = () => {
         setIsFocused(true);
