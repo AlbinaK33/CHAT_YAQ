@@ -22,7 +22,7 @@
   },
   "include": [
     "src",
-    "src/container/onboarding/index.tsx",
+    "src/page/onboarding/index.tsx",
     "src/component/Switch.tsx",
     "src/component/index.tsx"
   ]

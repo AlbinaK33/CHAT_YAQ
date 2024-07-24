@@ -2,17 +2,17 @@ import React, { useEffect, useMemo } from "react";
 import "./index.scss";
 import { useState } from "react";
 import SwitchTheme from "../../component/SwitchTheme";
-import {
-  motion,
-  useAnimation,
-} from "framer-motion";
+import {  AnimatePresence, motion, useAnimation } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { animationImgComponent } from "../../component/onboarding-animations/animationImgComponent";
+import { animationAncherComponent } from "../../component/onboarding-animations/animationAncherComponent";
+import { animationbuttonComponent } from "../../component/onboarding-animations/animationbuttonComponent";
+import { animationPComponent } from "../../component/onboarding-animations/animationPComponent";
 const OnboardingPage: React.FC = () => {
   const navigate = useNavigate();
   const [swithTheme, setSwithTheme] = useState(true);
   const [showText, setShowText] = useState(false);
   const [language, setLanguage] = useState("ua");
-
   const state = useMemo(() => {
     if (language === "ua") {
       return {
@@ -77,38 +77,39 @@ const OnboardingPage: React.FC = () => {
       };
     }
   }, [language]);
-  const signUp = () => {
-    navigate("/signup");
+  const log = (event: React.MouseEvent<HTMLElement>) => {
+    if (event.currentTarget.id === "sign-up") {
+      navigate("/signup");
+    } else {
+      navigate("/signin");
+    }
   };
-  // const langVariants = {
-  //   start: {  transition: { ease: "easeOut", duration: 0.1 }, opacity:0 },
-  //   end: {  transition: {    duration: 0.1, ease: "easeIn" }, opacity:1},
-  // }
-
   const textVariants = {
     light: { x: 0, transition: { ease: "easeInOut", duration: 0.3 } },
-    dark: { x: -25, transition: { ease: "easeInOut", duration: 0.3 } }
+    dark: { x: -25, transition: { ease: "easeInOut", duration: 0.3 } },
   };
   const controls = useAnimation();
   useEffect(() => {
-    if (!swithTheme) {
+    if (!swithTheme ) {
       controls.start("dark");
-    } else if(swithTheme) {
+    } else if (swithTheme) {
       controls.start("light");
     }
   }, [swithTheme, controls, language]);
-
+  
+  
+  
   return (
     <div className={swithTheme ? "page" : "page-black"}>
       <header>
         <div className="left">
           <img
-            style={{ width: "177px", height: "62px" }}
             src={swithTheme ? "/img/logo.png" : "/img/logo2.png"}
             alt="Logo"
           />
-          {language==="ua"? <a className="ua" href="#logo">Про лого</a>: <a className="en" href="#logo"> Our logo</a>}
-          {language==="ua"? <a className="ua" href="#values">Наші цінності</a>: <a className="en" href="#values"> Our values</a>}
+
+          {animationAncherComponent("-logo", "#logo", state?.aboutLogo, language)}
+          {animationAncherComponent("-values", "#values", state?.aboutValues, language)}
         </div>
         <div className="right">
           <div className="switches">
@@ -155,64 +156,86 @@ const OnboardingPage: React.FC = () => {
             />
           </div>
           <div className="log">
-            <motion.button id="log-in">{state?.signUp}</motion.button>
-            <motion.button onClick={signUp} id="sign-up">
-              {state?.logIn}
-            </motion.button>
+            {animationbuttonComponent("-logIn", "log-in", log, state?.signUp, language)}
+            {animationbuttonComponent("-signUp", "sign-up", log, state?.logIn, language)}
           </div>
         </div>
       </header>
       <main>
         <div className="intro">
           <div className="forStickerPlacing">
-            <motion.img 
-              className="sticker2"
-              style={{ height: "158px", width: "191.95px" }}
-              src={state?.sticker2}
-              alt="стікер чат"
-            />
+            {animationImgComponent(
+              "sticker2",
+              { height: "158px", width: "191.95px", alignSelf: "center" },
+              state?.sticker2,
+              "стікер чат", language
+            )}
+
             <motion.div
               className="text"
               animate={controls}
               variants={textVariants}
             >
-              <h1 style={{ marginBottom: "24px" }}>
+              <AnimatePresence mode="popLayout">
+        <motion.h1
+          key={language + "-chatPlatform"}
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: 1,
+            transition: { duration: 0.2, ease: "linear" },
+          }}
+          exit={{ opacity: 0}}
+        >
                 {" "}
-                <span style={{ color: "#1ED760" }}>
+                <span >
                   {state?.chatPlatformSpan}
                 </span>{" "}
                 {state?.chatPlatform}
-              </h1>
-              <p>{state?.description}</p>
+        </motion.h1>
+      </AnimatePresence>
+             
+              {animationPComponent("-description", state?.description, language)}
             </motion.div>
-            <motion.img 
-              className="sticker1"
-              style={{ height: "153.79px", width: "268.48px" }}
-              src={state?.sticker1}
-              alt="стікер привіт"
-            />
+            {animationImgComponent(
+              "sticker1",
+              {
+                height: "153.79px",
+                width: "268.48px",
+                marginTop: "-100px",
+                marginLeft: "-100px",
+                alignSelf: "flex-start",
+              },
+              state?.sticker1,
+              "стікер привіт", language
+            )}
           </div>
         </div>
         <div id="logo">
-          <div>
-            {(showText && (
+        {
+            
+            (showText && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
                 className={"text-about"}
                 style={{ width: "681.48px", height: "639px" }}
                 onClick={() => {
                   setShowText(false);
                 }}
               >
-                <p>{state?.logoText[1]}</p>
-                <p>{state?.logoText[2]}</p>
-                <p>{state?.logoText[3]}</p>
-                <p>{state?.logoText[4]}</p>
-                <p>{state?.logoText[5]}</p>
-                <p>{state?.logoText[6]}</p>
-                <img src={state?.logoHeartSignature} alt="" />
+                {animationPComponent("-1", state?.logoText[1], language)}
+                {animationPComponent("-2", state?.logoText[2], language)}
+                {animationPComponent("-3", state?.logoText[3], language)}
+                {animationPComponent("-4", state?.logoText[4], language)}
+                {animationPComponent("-5", state?.logoText[5], language)}
+                {animationPComponent("-6", state?.logoText[6], language)}
+                {animationImgComponent(
+                  "sign",
+                  { width: "auto", height: "auto" },
+                  state?.logoHeartSignature,
+                  "Чому YAQ? Натискай картинку і дізнаєшся", language
+                )}
               </motion.div>
             )) ||
               (!showText && (
@@ -226,18 +249,14 @@ const OnboardingPage: React.FC = () => {
                   alt="logo card"
                 />
               ))}
-          </div>
-
-          <img
-            className="sign"
-            style={{ width: "325.89px", height: "287.16px" }}
-            src={
-              swithTheme ? state?.logoSignature : "/img/Group 1000004159.png"
-            }
-            alt="Чому YAQ? Натискай картинку і дізнаєшся"
-          />
+          {animationImgComponent(
+            "sign",
+            { width: "325.89px", height: "287.16px" },
+            swithTheme ? state?.logoSignature : "/img/Group 1000004159.png",
+            "Чому YAQ? Натискай картинку і дізнаєшся", language
+          )}
         </div>
-        <motion.div 
+        <motion.div
           id="values"
           style={
             swithTheme
@@ -249,27 +268,25 @@ const OnboardingPage: React.FC = () => {
           <div className="list">
             <div>
               <img src="/img/1..png" alt="1" />
-              <p>{state?.valuesList[1]}</p>
+              {animationPComponent("-1", state?.valuesList[1], language)}
             </div>
             <div>
               <img src="/img/2..png" alt="2" />
-              <p>{state?.valuesList[2]}</p>
+              {animationPComponent("-2", state?.valuesList[2], language)}
             </div>
             <div>
               <img src="/img/3..png" alt="3" />
-              <p>{state?.valuesList[3]}</p>
+              {animationPComponent("-3", state?.valuesList[3], language)}
             </div>
             <div>
               <img src="/img/4..png" alt="4" />
-              <p>{state?.valuesList[4]}</p>
+              {animationPComponent("-4", state?.valuesList[4], language)}
             </div>
           </div>
         </motion.div>
       </main>
       <footer>
-        <div
-          className="footerBox"
-        >
+        <div className="footerBox">
           <div className="footerLeft">
             <img
               style={{ width: "177px", height: "62px" }}
@@ -278,8 +295,12 @@ const OnboardingPage: React.FC = () => {
               alt="logo"
             />
             <div className="values">
-              {<a  href="#logo">About logo</a>}
-              <a href="#values">{state?.aboutValues}</a>
+              {animationAncherComponent("-logo", "#logo", state?.aboutLogo, language)}
+              {animationAncherComponent(
+                "-values",
+                "#values",
+                state?.aboutValues, language
+              )}
             </div>
             <div className="social">
               <motion.p>{state?.socialSignature}</motion.p>

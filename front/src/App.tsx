@@ -7,7 +7,7 @@ import SignInPage from "./container/signin";
 import SignNamePage from "./container/signName";
 
 import { createContext } from "vm";
-import OnboardingPage from "./container/onboarding"
+import OnboardingPage from "./page/onboarding"
 
 
 function App() {
