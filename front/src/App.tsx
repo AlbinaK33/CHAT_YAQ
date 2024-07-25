@@ -8,6 +8,7 @@ import SignNamePage from "./container/signName";
 
 import { createContext } from "vm";
 import OnboardingPage from "./page/onboarding"
+import RecoveryPage from "./container/recoveryPage";
 
 
 function App() {
@@ -22,6 +23,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/signname" element={<SignNamePage />} />
+      </Routes>
+      <Routes>
+        <Route path="/recovery" element={<RecoveryPage />} />
       </Routes>
     </BrowserRouter>
 

@@ -1,0 +1,67 @@
+@import '../../global.scss';
+
+
+.page--sign-in {
+    display: flex;
+    flex-direction: row;
+    gap: 108px;
+    background: $white-color;
+    margin: auto;
+    justify-content: center;
+
+    align-items: center;
+    height: 100vh;
+}
+
+.page__section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 614px;
+  }
+  
+  .form__section {
+    display: flex;
+    border-radius: 18px;
+    border: 1px solid #e0e0e0;
+    padding: 32px;
+    gap: 0px;
+    width: 448px;
+        
+  }
+
+  .form__container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+  }
+
+
+  .text--small {
+    font-size: 14px;
+    text-align: center;
+  }
+
+
+.social-login--down {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 32px;
+    width: 448px;
+}
+
+.recovery {
+    display: inline-block;
+    text-align: end;
+    margin-top: 0px; 
+  width: 100%;
+  font-size: 14px;
+  line-height: 1;
+
+  & .link {
+    display: inline-block;
+    margin: 8px;
+  }
+}

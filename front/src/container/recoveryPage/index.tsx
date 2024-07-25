@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "../../global.scss"
-import "./signin.scss";
+import "./recovery.scss";
 import Divider from "../../component/divider";
 import SocialLogin from "../../component/socialLogin";
 import FieldPassword from "../../component/field-password";
@@ -27,7 +27,7 @@ const FIELD_ERROR = {
 };
 
 
-const SignInPage: React.FC = () => {
+const RecoveryPage: React.FC = () => {
   const navigate = useNavigate()
 
   const calculateIsFormValid = (errors: any) => {
@@ -123,19 +123,15 @@ const SignInPage: React.FC = () => {
 
   return (
     <div className="page--sign-in">
-      <aside className="page__section">
+    
         <div>
           <img src="img/logo.png" alt="logo" className="logo" />
         </div>
-        <div><h1 className="title text">Захоплюючі розмови на теми, що вас цікавлять!</h1>
-        <p className="text">Наш чат створений для того, щоб об'єднати людей з різними  інтересами і допомогти відкривати нові хобі!</p></div>
-        <div>
-          <img src="img/mcbook.png" alt="mcbook" className="aside_img" />
-        </div>
-      </aside>
+        
       <section className="page__section form__section">
+        
         <form className="form__container" onSubmit={handleSubmit}>
-        <h2 className="title">Увійти</h2>   
+        <h2 className="title">Не вдається ввійти?</h2>   
 
         
         <div className="field">
@@ -151,20 +147,11 @@ const SignInPage: React.FC = () => {
 
         <div className="field">
 
-        <FieldPassword
-            label={"Пароль"}
-            value={user.password}
-            onChange={handleChange}
-            error={error.password}
-            showPassword={showPassword}
-            onTogglePassword={togglePasswordVisibility}
-            placeholder="Введіть ваш пароль"
-          />
 
 
         <section className="recovery">
         <span className="text--small">
-        <a className="link" href="/recovery">{" "}Забули пароль?</a>
+        <a className="link" href="/recovery">{" "}Не вдається відновити доступ?</a>
         </span>
       </section>
         </div>
@@ -172,15 +159,13 @@ const SignInPage: React.FC = () => {
         </form>
 
         <div className="social-login--down">
-        <button className="button button--dark" type="submit">Увійти</button>
+        <button className="button button--dark" type="submit">Надіслати посилання</button>
         <Divider/>
 
-        <SocialLogin />
 
-        <p className="text--small">
-        Не маєте облікового запису?
-        <a className="link" href="/signup">{" "}Зареєструватися</a>
-        </p>
+        <a style={{textDecoration: 'none'}} className="text--small" href="/signup">
+        Створити обліковий запис
+        </a>
         </div>
 
       
@@ -190,4 +175,4 @@ const SignInPage: React.FC = () => {
   );
 };
 
-export default SignInPage;
+export default RecoveryPage;
