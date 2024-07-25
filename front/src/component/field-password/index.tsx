@@ -56,13 +56,11 @@ const FieldPassword: React.FC<PasswordProps> = ({
         const measure = measureRef.current;
 
         const cursorPosition = debounce(() => {
-            if(input && cursor) {
-            const {selectionStart} = input;
-            const leftPos = selectionStart ? selectionStart * 12 : 0; 
-            cursor.style.left = `${leftPos}px`;
-
-            const offset = 10; 
-            cursor.style.left = `${leftPos + offset}px`;
+            if(input && cursor && measure) {
+                const text = input.value.substring(0, input.selectionStart ?? 0);
+                measure.textContent = showPassword ? text : "*".repeat(text.length);
+                const leftPos = measure.offsetWidth;
+                cursor.style.left = `${leftPos + 4}px`;
             }
         }, 50)
 
@@ -139,6 +137,7 @@ const FieldPassword: React.FC<PasswordProps> = ({
                         onClick={onTogglePassword}>
                         </span>
                         <div className="cursor" ref={cursorRef}></div>
+                        <span className="text-measure" ref={measureRef}></span>
                     </div>
                 </div>
                 <div>
