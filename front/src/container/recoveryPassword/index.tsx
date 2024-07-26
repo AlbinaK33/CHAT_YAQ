@@ -176,13 +176,14 @@ const RecoveryPasswordPage: React.FC = () => {
         <div className="field">
 
         <FieldPassword
-        label={"Підтвердити новий пароль"}
+        label={"Пароль"}
         value={formData[FIELD_NAME.PASSWORD]}
         onChange={handleChange}
         error={error[FIELD_NAME.PASSWORD]}
+        requirements={passwordRequirements}
         showPassword={showPassword}
         onTogglePassword={togglePasswordVisibility}
-        placeholder="Введіть пароль ще раз" />
+        placeholder="Створіть пароль" />
 
         </div>
         
