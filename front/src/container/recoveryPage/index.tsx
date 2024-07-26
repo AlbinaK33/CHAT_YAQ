@@ -4,26 +4,18 @@ import { useNavigate } from "react-router-dom";
 import "../../global.scss"
 import "./recovery.scss";
 import Divider from "../../component/divider";
-import SocialLogin from "../../component/socialLogin";
-import FieldPassword from "../../component/field-password";
 import FieldEmail from "../../component/field-email";
 
 
 
 export const REG_EXP_EMAIL = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/);
-export const REG_EXP_PASSWORD = new RegExp(
-  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
-);
 
 const FIELD_NAME = {
   EMAIL: "email",
-  PASSWORD: "password",
 };
 
 const FIELD_ERROR = {
   EMAIL: "Переконайтеся, що ви ввели свою електронну адресу правильно",
-  PASSWORD:
-    "Переконайтеся, що ви ввели свій пароль правильно",
 };
 
 
@@ -34,25 +26,16 @@ const RecoveryPage: React.FC = () => {
     return Object.values(errors).every((error) => error === "");
   };
   
-  const [isFormValid, setIsFormValid] = useState(false);
 
   const [user, setUser] = useState({
     email: "",
-    password: "",
   });
 
   const [error, setError] = useState({
     [FIELD_NAME.EMAIL]: "",
-    [FIELD_NAME.PASSWORD]: "",
   })
 
-  const [showPassword, setShowPassword] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-
+ 
  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,9 +51,6 @@ const RecoveryPage: React.FC = () => {
       case FIELD_NAME.EMAIL:
         errorMessage = value === "" ? "" : (!REG_EXP_EMAIL.test(value) ? FIELD_ERROR.EMAIL : "");
         break;
-        case FIELD_NAME.PASSWORD:
-          errorMessage = value === "" ? "" : (!REG_EXP_PASSWORD.test(value) ? FIELD_ERROR.PASSWORD : "");
-          break;
       default:
         break;
     }
@@ -84,13 +64,6 @@ const RecoveryPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!REG_EXP_PASSWORD.test(user.password)) {
-      setError({
-        ...error,
-        [FIELD_NAME.PASSWORD]: FIELD_ERROR.PASSWORD,
-      });
-      return;
-    }
 
     if(calculateIsFormValid(error)) {
       return;
@@ -122,7 +95,7 @@ const RecoveryPage: React.FC = () => {
   
 
   return (
-    <div className="page--sign-in">
+    <div className="page--recovery">
     
         <div>
           <img src="img/logo.png" alt="logo" className="logo" />
@@ -131,7 +104,12 @@ const RecoveryPage: React.FC = () => {
       <section className="page__section form__section">
         
         <form className="form__container" onSubmit={handleSubmit}>
-        <h2 className="title">Не вдається ввійти?</h2>   
+
+
+          <div className="text__section">          
+        <h2 className="title">Не вдається ввійти?</h2>
+        <p className="text--light" >Укажіть електронну адресу і ми надішлемо вам код для відновлення доступу до облікового запису</p>   
+          </div>
 
         
         <div className="field">
@@ -143,17 +121,13 @@ const RecoveryPage: React.FC = () => {
         error={error.email}
         placeholder="Введіть вашу електронну адресу"
         />
-        </div>
-
-        <div className="field">
-
-
 
         <section className="recovery">
         <span className="text--small">
         <a className="link" href="/recovery">{" "}Не вдається відновити доступ?</a>
         </span>
       </section>
+
         </div>
         
         </form>
