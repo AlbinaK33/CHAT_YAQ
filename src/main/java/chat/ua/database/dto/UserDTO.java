@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class UserDTO {
     @NotBlank(message = "Username is mandatory")
-    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Invalid username")
+    @Pattern(regexp = "^\\w+$", message = "Invalid username")
     private String username;
 
     @NotBlank(message = "First name is mandatory")
@@ -32,4 +32,7 @@ public class UserDTO {
     private String facebook;
     private byte[] avatar;
     private String timezone;
+
+
+    private String password;
 }

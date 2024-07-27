@@ -11,16 +11,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 
 @Entity
 @Data
 @Table(name = "users")
-public class User implements UserDetails {
+public class User implements UserDetails,  Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -92,7 +93,7 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "contact_id")
     )
-    private List<Contact> contacts = new ArrayList<>();
+    private transient List<Contact> contacts = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -100,25 +101,25 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id")
     )
-    private List<Permission> permissions = new ArrayList<>();
+    private transient List<Permission> permissions = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
             name = "participants",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "room_id"))
-    private Set<Room> rooms;
+    private transient Set<Room> rooms;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SupportRequest> supportRequests = new ArrayList<>();
+    private transient List<SupportRequest> supportRequests = new ArrayList<>();
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return permissions.stream()
                 .map(permission -> new SimpleGrantedAuthority(permission.getRole().name()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -146,6 +147,7 @@ public class User implements UserDetails {
     protected void onCreate() {
         this.registrationDate = LocalDateTime.now();
         this.timezone = ZoneId.systemDefault();
+        this.lastLoginDate = LocalDateTime.now();
     }
 
     @PreUpdate
