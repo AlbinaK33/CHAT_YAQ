@@ -1,7 +1,6 @@
 package chat.ua.controller;
 
 import chat.ua.database.dto.SupportRequestDTO;
-import chat.ua.database.entity.SupportRequest;
 import chat.ua.database.service.SupportRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
