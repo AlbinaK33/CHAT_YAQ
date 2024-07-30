@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import "../../global.scss"
 import "./recoveryPassword.scss";
-import Divider from "../../component/divider";
 import FieldPassword from "../../component/field-password";
 import FieldCode from "../../component/field-code";
 
@@ -25,7 +24,7 @@ const FIELD_NAME = {
 const FIELD_ERROR = {
 
   EMAIL: "Переконайтеся, що ви ввели свою електронну адресу правильно",
-  CODE: "Invalid code. Try again",
+  CODE: "Код, який ви ввели, невірний. Будь ласка, перевірте його та спробуйте ще раз",
   PASSWORD:
     "Переконайтеся, що ви ввели свій пароль правильно",
 };
@@ -88,9 +87,7 @@ const RecoveryPasswordPage: React.FC = () => {
     return "";
   };
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const { name, value } = e.target;
-    
+  const handleInputChange = (name: string, value: string) => {
     const errorMessage = validate(name, value);
 
     setFormData({
@@ -102,12 +99,17 @@ const RecoveryPasswordPage: React.FC = () => {
       ...error,
       [name]: errorMessage,
     });
-    //=============================================
 
     const newIsFormValid = calculateIsFormValid({
       ...error,
+      [name]: errorMessage,
     });
     setIsFormValid(newIsFormValid);
+  };
+
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const { name, value } = e.target;
+    handleInputChange(name, value);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -166,7 +168,7 @@ const RecoveryPasswordPage: React.FC = () => {
 
         <FieldCode
         label="Код" 
-        onChange={handleChange}
+        onChange={(value: string) => handleInputChange(FIELD_NAME.CODE, value)}
         value={error.email}
         error={error.email}
         placeholder="Введіть код"/>

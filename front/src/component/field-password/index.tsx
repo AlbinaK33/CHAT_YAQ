@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, {  useState } from "react";
 
 import "./field-password.scss"
 
@@ -42,63 +42,10 @@ const FieldPassword: React.FC<PasswordProps> = ({
     label,
   }) => {
 
-      const inputRef = useRef<HTMLInputElement>(null);
-      const cursorRef = useRef<HTMLDivElement>(null);
-      const measureRef = useRef<HTMLSpanElement>(null);
 
       const [isFocused, setIsFocused] = useState(false);
-      const [isTyping, setIsTyping] = useState(false);
 
-    useEffect(() => {
-
-        const input = inputRef.current;
-        const cursor = cursorRef.current;
-        const measure = measureRef.current;
-
-        const cursorPosition = debounce(() => {
-            if(input && cursor && measure) {
-                const text = input.value.substring(0, input.selectionStart ?? 0);
-                measure.textContent = showPassword ? text : "*".repeat(text.length);
-                const leftPos = measure.offsetWidth;
-                cursor.style.left = `${leftPos + 4}px`;
-            }
-        }, 50)
-
-    if(input && cursor) {
-
-        const handleKeyDown = (e: KeyboardEvent) => {
-            cursor.style.display = "inline-block";
-        }
-
-        const handleKeyUp = (e: KeyboardEvent) => {
-            cursorPosition(); 
-        }
-
-        const handleCursorFocus = () => {
-            setIsFocused(true);
-            cursor.style.display = "inline-block";
-          };
-    
-          const handleCursorBlur = () => {
-            setIsFocused(false);
-            cursor.style.display = "none"; 
-          };
-
-          input.addEventListener("keydown", handleKeyDown);
-          input.addEventListener("keyup", handleKeyUp);
-          input.addEventListener("focus", handleCursorFocus);
-          input.addEventListener("blur", handleCursorBlur);
-
-        return () => {
-            input.removeEventListener("keydown", handleKeyDown);
-            input.removeEventListener("keyup", handleKeyUp);
-            input.removeEventListener("focus", handleCursorFocus);
-            input.removeEventListener("blur", handleCursorBlur);
-    };
-}
-    }, [])
-   
-
+  
     
 
     const handleFocus = () => {
@@ -120,7 +67,6 @@ const FieldPassword: React.FC<PasswordProps> = ({
             <div>
                 <div className="field">
                     <label className="field__label">{label}</label>
-                    <div className={`password-wrapper ${showPassword ? "show-password" : ""}`}>
 
                         <input
                         className={inputClassName} 
@@ -131,14 +77,10 @@ const FieldPassword: React.FC<PasswordProps> = ({
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                         data-show-password={showPassword}
-                        ref={inputRef}
                         />
                         <span className={`field__icon hide ${showPassword ? "show" : ""} `}
                         onClick={onTogglePassword}>
                         </span>
-                        <div className="cursor" ref={cursorRef}></div>
-                        <span className="text-measure" ref={measureRef}></span>
-                    </div>
                 </div>
                 <div>
                     { requirements && isFocused ? (
