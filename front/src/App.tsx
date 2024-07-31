@@ -10,29 +10,30 @@ import { createContext } from "vm";
 import OnboardingPage from "./page/onboarding"
 import RecoveryPage from "./container/recoveryPage";
 import RecoveryPasswordPage from "./container/recoveryPassword";
+import RoomPage from "./page/room-page";
 
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<OnboardingPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-      </Routes>
-      <Routes>
-        <Route path="/signin" element={<SignInPage />} />
-      </Routes>
-      <Routes>
-        <Route path="/signname" element={<SignNamePage />} />
-      </Routes>
-      <Routes>
-        <Route path="/recovery" element={<RecoveryPage />} />
-      </Routes>
-      <Routes>
-        <Route path="/recoveryPassword" element={<RecoveryPasswordPage />} />
-      </Routes>
-    </BrowserRouter>
-
+    // <BrowserRouter>
+    //   <Routes>
+    //     <Route path="/" element={<OnboardingPage />} />
+    //     <Route path="/signup" element={<SignUpPage />} />
+    //   </Routes>
+    //   <Routes>
+    //     <Route path="/signin" element={<SignInPage />} />
+    //   </Routes>
+    //   <Routes>
+    //     <Route path="/signname" element={<SignNamePage />} />
+    //   </Routes>
+    //   <Routes>
+    //     <Route path="/recovery" element={<RecoveryPage />} />
+    //   </Routes>
+    //   <Routes>
+    //     <Route path="/recoveryPassword" element={<RecoveryPasswordPage />} />
+    //   </Routes>
+    // </BrowserRouter>
+<RoomPage/>
   );
 }
 
