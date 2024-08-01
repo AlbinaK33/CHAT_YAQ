@@ -15,6 +15,7 @@ interface PasswordProps {
     showPassword: boolean;
     placeholder: string;
     label: string;
+    name: string;
     onTogglePassword: () => void;
     
 }
@@ -40,6 +41,7 @@ const FieldPassword: React.FC<PasswordProps> = ({
     onTogglePassword,
     placeholder,
     label,
+    name
   }) => {
 
 
@@ -70,7 +72,7 @@ const FieldPassword: React.FC<PasswordProps> = ({
 
                         <input
                         className={inputClassName} 
-                        name="password" 
+                        name={name}
                         value={value} 
                         type={showPassword ? "text" : "password"} placeholder={placeholder} 
                         onChange={onChange}

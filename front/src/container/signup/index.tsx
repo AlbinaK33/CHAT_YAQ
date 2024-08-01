@@ -200,6 +200,7 @@ const SignUpPage: React.FC = () => {
         error={error[FIELD_NAME.PASSWORD]}
         requirements={passwordRequirements}
         showPassword={showPassword}
+        name={FIELD_NAME.PASSWORD}
         onTogglePassword={togglePasswordVisibility}
         placeholder="Створіть пароль" />
 

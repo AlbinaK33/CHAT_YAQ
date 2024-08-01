@@ -18,7 +18,7 @@ export const REG_EXP_PASSWORD = new RegExp(
 const FIELD_NAME = {
   CODE: "code",
   PASSWORD: "password",
-  NEW_PASSWORD: "password",
+  NEW_PASSWORD: "newPassword",
 };
 
 const FIELD_ERROR = {
@@ -27,6 +27,7 @@ const FIELD_ERROR = {
   CODE: "Код, який ви ввели, невірний. Будь ласка, перевірте його та спробуйте ще раз",
   PASSWORD:
     "Переконайтеся, що ви ввели свій пароль правильно",
+    NEW_PASSWORD: "Паролі не співпадають",
 };
 
 
@@ -50,7 +51,7 @@ const RecoveryPasswordPage: React.FC = () => {
     [FIELD_NAME.CODE]: "",
     [FIELD_NAME.PASSWORD]: "",
     [FIELD_NAME.NEW_PASSWORD]: "",
-  })
+  });
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -75,13 +76,19 @@ const RecoveryPasswordPage: React.FC = () => {
     {text: "Мінімум 8 символів", isMet: formData[FIELD_NAME.PASSWORD].length >= 8},
     {text: "Містить принаймні одну цифру", isMet: /\d/.test(formData[FIELD_NAME.PASSWORD]) },
     {text: "Без спеціальних символів (!$@%#&)", isMet: !/[!@$%#^&*]/.test(formData[FIELD_NAME.PASSWORD]) },
-  ]
+  ];
 
   const validate = (name: string, value: any) => {
   
     if (name === FIELD_NAME.PASSWORD) {
       if (!REG_EXP_PASSWORD.test(String(value))) {
         return FIELD_ERROR.PASSWORD;
+      }
+    }
+  
+    if (name === FIELD_NAME.NEW_PASSWORD) {
+      if (value !== formData[FIELD_NAME.PASSWORD]) {
+        return FIELD_ERROR.NEW_PASSWORD;
       }
     }
     return "";
@@ -169,8 +176,8 @@ const RecoveryPasswordPage: React.FC = () => {
         <FieldCode
         label="Код" 
         onChange={(value: string) => handleInputChange(FIELD_NAME.CODE, value)}
-        value={error.email}
-        error={error.email}
+        value={formData[FIELD_NAME.CODE]}
+        error={error[FIELD_NAME.CODE]}
         placeholder="Введіть код"/>
 
         </div>
@@ -181,6 +188,7 @@ const RecoveryPasswordPage: React.FC = () => {
         label={"Пароль"}
         value={formData[FIELD_NAME.PASSWORD]}
         onChange={handleChange}
+        name={FIELD_NAME.PASSWORD}
         error={error[FIELD_NAME.PASSWORD]}
         requirements={passwordRequirements}
         showPassword={showPassword}
@@ -193,10 +201,11 @@ const RecoveryPasswordPage: React.FC = () => {
 
         <FieldPassword
         label={"Підтвердити новий пароль"}
-        value={formData[FIELD_NAME.PASSWORD]}
+        value={formData[FIELD_NAME.NEW_PASSWORD]}
         onChange={handleChange}
-        error={error[FIELD_NAME.PASSWORD]}
+        error={error[FIELD_NAME.NEW_PASSWORD]}
         showPassword={showPassword}
+        name={FIELD_NAME.NEW_PASSWORD}
         onTogglePassword={togglePasswordVisibility}
         placeholder="Введіть пароль ще раз" />
 
