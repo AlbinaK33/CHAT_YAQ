@@ -1,8 +1,9 @@
-import React, { useState } from "react";
 import "./index.scss";
+
 interface RoomProps {
+  que: number;
+  setQue: (que: number) => void;
   name: string;
-  liked: boolean;
   discussions: number;
   members: number;
   img: string;
@@ -10,16 +11,15 @@ interface RoomProps {
 }
 
 const Room: React.FC<RoomProps> = ({
+  que,
+  setQue,
   name,
-  liked,
   discussions,
   members,
   img,
   styles,
-}
-) => {
+}) => {
 
-  const [handleLiked, setHandleLiked] = useState(false);
 
   return (
     <div
@@ -32,12 +32,16 @@ const Room: React.FC<RoomProps> = ({
       }}
     >
       <div>
-        <button onClick={()=>setHandleLiked(!handleLiked)}> 
-          {" "}
-          {
-            !handleLiked?<img className="heart-button"src="/img/Secondary.png" alt="" />: <img className="heart-button" src="/img/Secondary(1).png" alt="" />
-          }
-          
+        <button
+          onClick={() => {
+           que===-1? setQue(0): setQue(-1);
+          }}
+        >
+          {que===-1 ? (
+            <img className="heart-button" src="/img/Secondary.png" alt="" />
+          ) : (
+            <img className="heart-button" src="/img/Secondary(1).png" alt="" />
+          )}
         </button>
         <h2>{name}</h2>
         <div className="info">
