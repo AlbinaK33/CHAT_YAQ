@@ -4,20 +4,20 @@ import TextField from "@mui/material/TextField";
 import "./index.scss";
 import Room from "../../component/room-box/room";
 const RoomPage: React.FC = () => {
-  const [que1, setQue1] = useState(-1);
-  const [que2, setQue2] = useState(-1);
-  const [que3, setQue3] = useState(-1);
-  const [que4, setQue4] = useState(-1);
-  const [que5, setQue5] = useState(-1);
-  const [que6, setQue6] = useState(-1);
-  const [que7, setQue7] = useState(-1);
-  const [que8, setQue8] = useState(-1);
+  const [liked1, setliked1] = useState(false);
+  const [liked2, setliked2] = useState(false);
+  const [liked3, setliked3] = useState(false);
+  const [liked4, setliked4] = useState(false);
+  const [liked5, setliked5] = useState(false);
+  const [liked6, setliked6] = useState(false);
+  const [liked7, setliked7] = useState(false);
+  const [liked8, setliked8] = useState(false);
   const [swithTheme, setSwithTheme] = useState(true);
   
-  const filteredRooms = useMemo(() => {
-    const rooms = [{
-      que: que1,
-      setQue: setQue1,
+    const rooms = useMemo(()=>[{
+      index:1,
+      liked: liked1,
+      setLiked: setliked1,
       name: "Музика",
       discussions: 0,
       members: 9,
@@ -25,8 +25,9 @@ const RoomPage: React.FC = () => {
       styles: "571px"
     },
     {
-      que: que2,
-      setQue: setQue2,
+      index:2,
+      liked: liked2,
+      setLiked: setliked2,
       name: "Фільми",
       discussions: 0,
       members: 9,
@@ -34,8 +35,9 @@ const RoomPage: React.FC = () => {
       styles: "453px"
     },
     {
-      que: que3,
-      setQue: setQue3,
+      index:3,
+      liked: liked3,
+      setLiked: setliked3,
       name: "Комп'ютерні ігри",
       discussions: 0,
       members: 9,
@@ -43,8 +45,9 @@ const RoomPage: React.FC = () => {
       styles: "571px"
     },
     {
-      que: que4,
-      setQue: setQue4,
+      index:4,
+      liked: liked4,
+      setLiked: setliked4,
       name: "Спорт",
       discussions: 0,
       members: 2,
@@ -52,8 +55,9 @@ const RoomPage: React.FC = () => {
       styles: "336px"
     },
     {
-      que: que5,
-      setQue: setQue5,
+      index:5,
+      liked: liked5,
+      setLiked: setliked5,
       name: "Читання",
       discussions: 0,
       members: 9,
@@ -61,8 +65,9 @@ const RoomPage: React.FC = () => {
       styles: "453px"
     },
     {
-      que: que6,
-      setQue: setQue6,
+      index:6,
+      liked: liked6,
+      setLiked: setliked6,
       name: "Колекціонування",
       discussions: 0,
       members: 9,
@@ -70,8 +75,9 @@ const RoomPage: React.FC = () => {
       styles: "453px"
     },
     {
-      que: que7,
-      setQue: setQue7,
+      index:7,
+      liked: liked7,
+      setLiked: setliked7,
       name: "Подорожі",
       discussions: 0,
       members: 8,
@@ -79,38 +85,22 @@ const RoomPage: React.FC = () => {
       styles: "336px"
     },
     {
-      que: que8,
-      setQue: setQue8,
+      index:8,  
+      liked: liked8,
+      setLiked: setliked8,
       name: "Кулінарія",
       discussions: 0,
       members: 9,
       img: "/img/unsplash_rgRbqFweGF0.png",
       styles: "571px"
-    }];
-    return [...rooms.filter((room) => room.que === 0), ...rooms.filter((room) => room.que === -1)];
-  }, [que1, que2, que3, que4, que5, que6, que7, que8]);
-  useEffect(() => {
-    filteredRooms.map((room: {
-      que: number;
-      setQue: (que: number) => void;
-      name: string;
-      discussions: number;
-      members: number;
-      img: string;
-      styles: string;
-    }) => (
-      <Room
-        que={room.que}
-        setQue={room.setQue}
-        name={room.name}
-        discussions={room.discussions}
-        members={room.members}
-        img={room.img}
-        styles={room.styles}
-      />
-    ))
-  }, [filteredRooms, que1, que2, que3, que4, que5, que6, que7, que8]);
-  console.log(filteredRooms);
+    }],
+   [liked1, liked2, liked3, liked4, liked5, liked6, liked7, liked8]);
+   const filteredRooms = useMemo(() => {
+    const likedRooms = rooms.filter(room => room.liked);
+    const unlikedRooms = rooms.filter(room => !room.liked);
+    return [...likedRooms, ...unlikedRooms];
+  }, [rooms]);
+console.log(rooms);
   return (
     <div className={swithTheme ? "page" : "page-black"}>
       <header>
@@ -169,8 +159,9 @@ const RoomPage: React.FC = () => {
           </div>
         </div>
           {filteredRooms.map((room: {
-            que: number;
-            setQue: (que: number) => void;
+            index: number;
+            liked: boolean;
+            setLiked: (liked: boolean) => void;
             name: string;
             discussions: number;
             members: number;
@@ -178,8 +169,9 @@ const RoomPage: React.FC = () => {
             styles: string;
           }) => (
             <Room
-              que={room.que}
-              setQue={room.setQue}
+              index={room.index}
+              liked={room.liked}
+              setLiked={room.setLiked}
               name={room.name}
               discussions={room.discussions}
               members={room.members}

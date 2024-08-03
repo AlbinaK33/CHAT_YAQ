@@ -1,8 +1,10 @@
+// import { useRef, useState } from "react";
 import "./index.scss";
 
 interface RoomProps {
-  que: number;
-  setQue: (que: number) => void;
+  index: number;
+  liked: boolean;
+  setLiked: (liked: boolean) => void;
   name: string;
   discussions: number;
   members: number;
@@ -11,16 +13,15 @@ interface RoomProps {
 }
 
 const Room: React.FC<RoomProps> = ({
-  que,
-  setQue,
+  index,
+  liked,
+  setLiked,
   name,
   discussions,
   members,
   img,
   styles,
 }) => {
-
-
   return (
     <div
       className={"element"}
@@ -34,10 +35,10 @@ const Room: React.FC<RoomProps> = ({
       <div>
         <button
           onClick={() => {
-           que===-1? setQue(0): setQue(-1);
+            setLiked(!liked);
           }}
         >
-          {que===-1 ? (
+          {!liked ? (
             <img className="heart-button" src="/img/Secondary.png" alt="" />
           ) : (
             <img className="heart-button" src="/img/Secondary(1).png" alt="" />
