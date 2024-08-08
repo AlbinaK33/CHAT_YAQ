@@ -1,10 +1,10 @@
 @import '../../global.scss';
 
 
-.page--recovery {
+.page--sign-in {
     display: flex;
-    flex-direction: column;
-    gap: 32px;
+    flex-direction: row;
+    gap: 108px;
     background: $white-color;
     margin: auto;
     justify-content: center;
@@ -33,7 +33,7 @@
   .form__container {
     display: flex;
     flex-direction: column;
-    gap: 32pxpx;
+    gap: 24px;
     width: 100%;
   }
 
@@ -41,33 +41,48 @@
   .text--small {
     font-size: 14px;
     text-align: center;
+  }
+
+  .text__section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    line-height: 20px;
+  }
+
+.text--light {
+    color: #C3C3C3;
+    font-size: 15px;
+    text-align: center;
+    font-weight: 300;
+}
+
+.privacy-policy {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    p {
+        color: #c3c3c3;
+        line-height: 20px;
+    }
+}
+
+.link--privacy-policy {
+    text-decoration: none;
+    color: #0e0e0e;
+    font-weight: 500;
 
     &:hover {
       color: #404040;
+      font-weight: 300;
     }
 
-  }
+    &:focus {
+      color: #010101;
+      font-weight: 50;
+    }
 
-
-.social-login--down {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    padding: 32px;
-    width: 448px;
-}
-
-
-.recovery {
-    display: inline-block;
-    text-align: end;
-    margin-top: 0px; 
-  width: 100%;
-  font-size: 14px;
-  line-height: 1;
-
-  & .link {
-    display: inline-block;
-    margin: 8px;
-  }
+    &:disabled {
+      color: #A2A2A2;
+    }
 }
