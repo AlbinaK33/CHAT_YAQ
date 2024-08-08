@@ -105,7 +105,7 @@ const SignNamePage: React.FC = () => {
 
           if (res.ok) {
             clearForm();
-          navigate("/signup-confirm");
+          navigate("/timezone");
           }
 
         } catch (err) {
@@ -149,12 +149,9 @@ const SignNamePage: React.FC = () => {
 
         </div>
         
-        <div className="privacy-policy">
-            <p>Реєструючись, ви приймаєте наші{" "}<a href="/" className="link--privacy-policy">
-            Умови і Політику конфіденційності</a></p>
-        </div>
+    
 
-        <button className="button button--dark" type="submit">Зареєструватися</button>
+        <button className="button button--dark" type="submit">Продовжити</button>
         </form>
 
         

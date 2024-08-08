@@ -10,6 +10,7 @@ import { createContext } from "vm";
 import OnboardingPage from "./page/onboarding"
 import RecoveryPage from "./container/recoveryPage";
 import RecoveryPasswordPage from "./container/recoveryPassword";
+import TimezonePage from "./container/timezonePage";
 
 
 function App() {
@@ -24,6 +25,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/signname" element={<SignNamePage />} />
+      </Routes>
+      <Routes>
+        <Route path="/timezone" element={<TimezonePage />} />
       </Routes>
       <Routes>
         <Route path="/recovery" element={<RecoveryPage />} />
