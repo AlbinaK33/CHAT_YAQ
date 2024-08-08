@@ -1,0 +1,42 @@
+@font-face {
+    font-family: "KyivTypeSans-Bold";
+    src: url("../../fonts/kyivtypesans/OTF/KyivTypeSans-Bold-.otf")
+    format("opentype");
+}
+
+.element {
+  padding: 24px 12px;
+  position: relative;
+  // background-color: linear-gradient( rgb(0,0,0) );
+  justify-content: center;
+  align-items: center;
+    display: flex;
+    color: #D2F7DF;
+    font-size: 16px;
+    height:336px;
+    border-radius: 16px;
+    .heart-button{
+      position: absolute;
+      top:6px;
+      right: 6px;
+      z-index: 2;
+    }
+    .info{
+    margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      .group{
+        display: flex;
+        gap:4px;
+      }
+    }
+  
+  h2{
+    font-size: 40px;
+    font-family: "KyivTypeSans-Bold";
+    color: #ffffff;
+    z-index: 4;
+  }
+  
+}
