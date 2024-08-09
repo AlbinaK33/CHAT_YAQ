@@ -10,6 +10,7 @@ import OnboardingPage from "./page/onboarding"
 import RecoveryPage from "./container/recoveryPage";
 import RecoveryPasswordPage from "./container/recoveryPassword";
 import TimezonePage from "./container/timezonePage";
+import RoomPage from "./page/room-page";
 
 
 function App() {
@@ -23,8 +24,10 @@ function App() {
         <Route path="/timezone" element={<TimezonePage />} />
         <Route path="/recovery" element={<RecoveryPage />} />
         <Route path="/recoveryPassword" element={<RecoveryPasswordPage />} />
+        <Route path="/rooms" element={<RoomPage/>} />
       </Routes>
     </BrowserRouter>
+
 
   );
 }
