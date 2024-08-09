@@ -1,102 +1,63 @@
-import { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import React from "react";
 
 import "../../global.scss"
 import "./timezone.scss";
-import FieldNickname from "../../component/field-nickname";
+import FieldTimezone from "../../component/field-timezone";
 
-
-export const REG_EXP_NICKNAME = new RegExp(/^[A-Za-z0-9_-]{5,}$/);
 
 const FIELD_NAME = {
-  NICKNAME: "nickname",
+  TIMEZONE: "timezone",
 };
-
-const FIELD_ERROR = {
-  NICKNAME: "Цей нікнейм використовується. Спробуйте інший",
-};
-
 
 
 const TimezonePage: React.FC = () => {
-  //   const authContext = useContext(AuthContext);
-
 
   const navigate = useNavigate()
 
-  const calculateIsFormValid = (errors: any) => {
-    return Object.values(errors).every((error) => error === "");
-  };
-
-  const [isFormValid, setIsFormValid] = useState(false);
-
   const [formData, setFormData] = useState({
-    [FIELD_NAME.NICKNAME]: "",
+    [FIELD_NAME.TIMEZONE]: "",
   });
 
-  const [error, setError] = useState({
-    [FIELD_NAME.NICKNAME]: "",
-  })
+  const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
 
   const clearForm = () => {
     setFormData({
-      [FIELD_NAME.NICKNAME]: "",
+      [FIELD_NAME.TIMEZONE]: "",
     });
-    setError({
-      [FIELD_NAME.NICKNAME]: "",
-    });
+    setError(null);
   };
 
-  const validate = (value: string) => {
-  
-      if (!REG_EXP_NICKNAME.test(value.replace(/^@/, ""))) {
-        return FIELD_ERROR.NICKNAME;
-      }
-    return "";
-  };
 
   const handleChange = (value: string) => {
-    // const { name, value } = e.target;
-    
-    const errorMessage = validate(value);
-
-    
 
     setFormData({
       ...formData,
-      [FIELD_NAME.NICKNAME]: value,
+      [FIELD_NAME.TIMEZONE]: value,
     });
 
-    setError({
-      ...error,
-      [FIELD_NAME.NICKNAME]: errorMessage,
-    });
     //=============================================
 
-    const newIsFormValid = calculateIsFormValid({
-      ...error,
-      [FIELD_NAME.NICKNAME]: errorMessage,
-    });
-
-    setIsFormValid(newIsFormValid);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const isFormValid = calculateIsFormValid(error);
+    setIsSubmitting(true);
+    setError(null);
 
-    if(isFormValid) {
+    if(formData[FIELD_NAME.TIMEZONE]) {
       try {
-        const { nickname } = formData;
+        const { timezone } = formData;
 
         const res = await fetch("http://localhost:9999/api/auth/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ username: nickname.replace(/^@/, "") }),
+          body: JSON.stringify({ timezone }),
           });
 
           // const data = await res.json();
@@ -106,11 +67,18 @@ const TimezonePage: React.FC = () => {
           if (res.ok) {
             clearForm();
           navigate("/signup-confirm");
+          } else {
+            const errorData = await res.json();
+            setError(errorData.message || "Щось пішло не так.");
           }
 
         } catch (err) {
-          console.log(err)
+          setError("Помилка з'єднання. Спробуйте ще раз.");
+          console.error(err);
       } 
+    } else {
+      setError("Часовий пояс не вибрано.");
+      setIsSubmitting(false);
     }
   }
 
@@ -137,14 +105,14 @@ const TimezonePage: React.FC = () => {
         </div>
         <div className="field">
 
-          <FieldNickname 
+          <FieldTimezone 
           label="Часовий пояс" 
-          placeholder="Введіть ваш @нікнейм" 
+          placeholder="Оберіть свій часовий пояс" 
           onChange={handleChange} 
-          value={formData.nickname}
-          error={error[FIELD_NAME.NICKNAME]} />
-
+          value={formData[FIELD_NAME.TIMEZONE]} />
         </div>
+
+        {error && <p className="error-message">{error}</p>}
         
         <div className="privacy-policy">
             <p>Реєструючись, ви приймаєте наші{" "}<a href="/" className="link--privacy-policy">
