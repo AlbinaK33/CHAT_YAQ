@@ -69,6 +69,7 @@ const FieldTimezone: React.FC<TimezoneProps> = ({
         </option>
       ))}
     </select>
+    <span className={`field__icon down`}></span>
         </div>
         
         </div>
