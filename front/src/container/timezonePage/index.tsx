@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../../global.scss"
 import "./timezone.scss";
 import FieldTimezone from "../../component/field-timezone";
+import LoadingButton from "../../component/loading-button";
 
 
 const FIELD_NAME = {
@@ -37,8 +38,6 @@ const TimezonePage: React.FC = () => {
       ...formData,
       [FIELD_NAME.TIMEZONE]: value,
     });
-
-    //=============================================
 
   };
 
@@ -82,6 +81,12 @@ const TimezonePage: React.FC = () => {
     }
   }
 
+  
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
+  };
+
 
   return (
     <div className="page--sign-in">
@@ -119,7 +124,14 @@ const TimezonePage: React.FC = () => {
             Умови і Політику конфіденційності</a></p>
         </div>
 
-        <button className="button button--dark" type="submit">Зареєструватися</button>
+        <LoadingButton
+        className="button button--dark"
+        isLoading={isSubmitting}
+        onClick={handleClick}
+        text="Зареєструватися"
+        type="submit"
+        />
+        
         </form>
 
         
