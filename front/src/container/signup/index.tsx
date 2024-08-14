@@ -8,6 +8,7 @@ import SocialLogin from "../../component/socialLogin";
 import FieldPassword from "../../component/field-password";
 import FieldEmail from "../../component/field-email";
 import FieldName from "../../component/field-name";
+import LoadingButton from "../../component/loading-button";
 
 export const REG_EXP_EMAIL = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/);
 export const REG_EXP_PASSWORD = new RegExp(
@@ -38,7 +39,7 @@ const SignUpPage: React.FC = () => {
     return Object.values(errors).every((error) => error === "");
   };
 
- 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -204,8 +205,12 @@ const SignUpPage: React.FC = () => {
         onTogglePassword={togglePasswordVisibility}
         placeholder="Створіть пароль" />
 
-        <button className="button button--dark" type="submit"
-        >Продовжити</button>
+<LoadingButton
+        className="button button--dark"
+        isLoading={isSubmitting}
+        text="Продовжити"
+        type="submit"
+        />
         </form>
       <div className="signin">
         <p className="text--small">

@@ -5,6 +5,7 @@ import "../../global.scss"
 import "./recovery.scss";
 import Divider from "../../component/divider";
 import FieldEmail from "../../component/field-email";
+import LoadingButton from "../../component/loading-button";
 
 
 
@@ -26,6 +27,7 @@ const RecoveryPage: React.FC = () => {
     return Object.values(errors).every((error) => error === "");
   };
   
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [user, setUser] = useState({
     email: "",
@@ -133,7 +135,12 @@ const RecoveryPage: React.FC = () => {
         </form>
 
         <div className="social-login--down">
-        <button className="button button--dark" type="submit">Надіслати посилання</button>
+        <LoadingButton
+        className="button button--dark"
+        isLoading={isSubmitting}
+        text="Надіслати посилання"
+        type="submit"
+        />
         <Divider/>
 
 
