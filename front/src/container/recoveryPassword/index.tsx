@@ -5,6 +5,7 @@ import "../../global.scss"
 import "./recoveryPassword.scss";
 import FieldPassword from "../../component/field-password";
 import FieldCode from "../../component/field-code";
+import LoadingButton from "../../component/loading-button";
 
 
 
@@ -40,6 +41,7 @@ const RecoveryPasswordPage: React.FC = () => {
 
  
   const [isFormValid, setIsFormValid] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     [FIELD_NAME.CODE]: "",
@@ -214,7 +216,12 @@ const RecoveryPasswordPage: React.FC = () => {
         </form>
 
         <div className="social-login--down">
-        <button className="button button--dark" type="submit">Увійти</button>
+        <LoadingButton
+        className="button button--dark"
+        isLoading={isSubmitting}
+        text="Увійти"
+        type="submit"
+        />
 
 
         </div>

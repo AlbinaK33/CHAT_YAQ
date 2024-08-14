@@ -127,7 +127,6 @@ const TimezonePage: React.FC = () => {
         <LoadingButton
         className="button button--dark"
         isLoading={isSubmitting}
-        onClick={handleClick}
         text="Зареєструватися"
         type="submit"
         />
