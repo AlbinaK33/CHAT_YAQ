@@ -5,6 +5,7 @@ import React from "react";
 import "../../global.scss"
 import "./signName.scss";
 import FieldNickname from "../../component/field-nickname";
+import LoadingButton from "../../component/loading-button";
 
 
 export const REG_EXP_NICKNAME = new RegExp(/^[A-Za-z0-9_-]{5,}$/);
@@ -30,6 +31,7 @@ const SignNamePage: React.FC = () => {
   };
 
   const [isFormValid, setIsFormValid] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     [FIELD_NAME.NICKNAME]: "",
@@ -151,7 +153,12 @@ const SignNamePage: React.FC = () => {
         
     
 
-        <button className="button button--dark" type="submit">Продовжити</button>
+        <LoadingButton
+        className="button button--dark"
+        isLoading={isSubmitting}
+        text="Продовжити"
+        type="submit"
+        />
         </form>
 
         

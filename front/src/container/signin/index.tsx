@@ -7,6 +7,7 @@ import Divider from "../../component/divider";
 import SocialLogin from "../../component/socialLogin";
 import FieldPassword from "../../component/field-password";
 import FieldEmail from "../../component/field-email";
+import LoadingButton from "../../component/loading-button";
 
 
 
@@ -35,6 +36,7 @@ const SignInPage: React.FC = () => {
   };
   
   const [isFormValid, setIsFormValid] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [user, setUser] = useState({
     email: "",
@@ -173,7 +175,12 @@ const SignInPage: React.FC = () => {
         </form>
 
         <div className="social-login--down">
-        <button className="button button--dark" type="submit">Увійти</button>
+        <LoadingButton
+        className="button button--dark"
+        isLoading={isSubmitting}
+        text="Увійти"
+        type="submit"
+        />
         <Divider/>
 
         <SocialLogin />
