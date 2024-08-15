@@ -13,6 +13,10 @@
     height: 100vh;
 }
 
+body.dark-theme .page--sign-in {
+  background: $dark-background;
+}
+
 .page__section {
     display: flex;
     flex-direction: column;
@@ -41,6 +45,10 @@
   .text--small {
     font-size: 14px;
     text-align: center;
+  }
+
+  body.dark-theme .text--small {
+    color: $theme--dark__text-color;
   }
 
 
