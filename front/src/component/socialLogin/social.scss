@@ -39,6 +39,27 @@
       
   }
 
+  body.dark-theme .button--google {
+        width: 100%;
+        max-width: 270px;
+        box-sizing: border-box;
+        background-color: $theme--dark-google-button-background;
+        color: $dark-button-text;
+        font-weight: 400;
+        
+
+
+      &:hover {
+        background-color: lighten($theme--dark-google-button-background, 10%);
+      }
+
+      &:focus {
+        background-color: darken($theme--dark-google-button-background, 10%);
+      }
+
+      
+  }
+
   .button--apple {
     background-color: #0e0e0e;
     color: $white-color;
