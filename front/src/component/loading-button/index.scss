@@ -1,3 +1,5 @@
+@import '../../global.scss';
+
 .button {
         &--loading {
 
@@ -7,6 +9,11 @@
         padding: 12px 24px;
         border: none;
         border-radius: 12px;
+
+        &.theme--dark {
+            background-color: $theme--dark__button-background-color;
+            color: $dark-button-text;
+          }
 
         &:disabled {
             cursor: not-allowed;
@@ -25,6 +32,10 @@
                 background-color: #FAFAFA;
                 border-radius: 50%;
                 animation: dotAnimation 1s infinite ease-in-out;
+
+                &.theme--dark {
+                    background-color: $dark-button-text;
+                  }
 
                 &:nth-child(2) {
                     animation-delay: 0.2s;

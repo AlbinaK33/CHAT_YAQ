@@ -14,6 +14,12 @@
 $black-color: #000;
 $white-color: #fff;
 
+$dark-background: #1E1E1E;
+$theme--dark__text-color: #FAFAFA;
+$theme--dark__button-background-color: #FAFAFA;
+$dark-button-text: #232323;
+$theme--dark-google-button-background: #EFEFEF;
+
 html, body {
   height: 100%;
   margin: 0;
@@ -24,7 +30,10 @@ body {
   font-family: "KyivTypeSans", sans-serif;
 }
 
-
+body.dark-theme {
+  background-color: $dark-background;
+  color: $theme--dark__text-color;
+}
 
 .button {
 border-radius: 12px;
@@ -50,6 +59,22 @@ transition: backgrground-color 0.3s ease;
 }
 }
 
+body.dark-theme .button--dark {
+  background-color: $theme--dark__button-background-color;
+  color: $dark-button-text;
+
+  &:hover {
+    background-color: #E0E0E0;
+  }
+
+  &:focus {
+    background-color: #BFBFBF;
+  }
+  &:disabled {
+    background-color: #404040;
+  }
+}
+
 .logo {
 max-width: 248px;
 height: 88px;
@@ -68,6 +93,10 @@ line-height: 28px;
 font-size: 20px;
 }
 
+body.dark-theme p.text {
+  color: $theme--dark__text-color;
+}
+
 .title {
 color: $black-color;
 font-weight: bold;
@@ -76,11 +105,9 @@ line-height: 32px;
 text-align: center;
 }
 
-// .text--small {
-//   color: $black-color;
-//   font-weight: 500;
-//   font-size: 16px;
-// }
+body.dark-theme .title {
+  color: $theme--dark__text-color;
+}
 
 .link {
 text-decoration: none;
@@ -101,16 +128,10 @@ font-weight: 500;
   color: #A3C9FA;
   font-weight: 200;
 }
-
-// &:visited {
-//   color: #3556eb;
-// }
-
 }
 
 
 .field {
-
 
 label {
     display: block;
@@ -118,6 +139,10 @@ label {
     color: $black-color;
     font-weight: 500;
     font-size: 16px;
+}
+
+body.dark-theme label {
+  color: $theme--dark__text-color;
 }
 
 input {
