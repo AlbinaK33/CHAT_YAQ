@@ -12,9 +12,9 @@ const likedButton: React.FC<likedButtonProps> = ({liked, setLiked}) => {
           }}
         >
           {liked<0? (
-            <img className="heart-button" src="/img/Secondary.png" alt="like button" />
+            <img className="heart-button" src="/img/heart transparent.png" alt="like button" />
           ) : (
-            <img className="heart-button" src="/img/Secondary(1).png" alt="like button" />
+            <img className="heart-button" src="/img/heart color.png" alt="like button" />
           )}
         </button>
   )

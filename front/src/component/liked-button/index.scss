@@ -3,4 +3,10 @@
     top:6px;
     right: 6px;
     z-index: 2;
+    padding: 12px;
+    background-color: rgba(225, 225, 225, 0.1);
+    border-radius: 32px;
+    &:hover{
+        background-color: #5E5E5E;
+    }
   }
