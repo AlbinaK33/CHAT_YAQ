@@ -1,10 +1,11 @@
 // import { useRef, useState } from "react";
 import "./index.scss";
+import LikedButton from "../liked-button/liked-button";
 
 interface RoomProps {
   index: number;
-  liked: boolean;
-  setLiked: (liked: boolean) => void;
+  liked: number;
+  setLiked: (liked: number) => void;
   name: string;
   discussions: number;
   members: number;
@@ -33,17 +34,7 @@ const Room: React.FC<RoomProps> = ({
       }}
     >
       <div>
-        <button
-          onClick={() => {
-            setLiked(!liked);
-          }}
-        >
-          {!liked ? (
-            <img className="heart-button" src="/img/Secondary.png" alt="" />
-          ) : (
-            <img className="heart-button" src="/img/Secondary(1).png" alt="" />
-          )}
-        </button>
+        <LikedButton liked={liked} setLiked={setLiked} />
         <h2>{name}</h2>
         <div className="info">
           <div className="group">
