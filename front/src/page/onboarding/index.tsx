@@ -8,6 +8,7 @@ import { animationImgComponent } from "../../component/onboarding-animations/ani
 import { animationAncherComponent } from "../../component/onboarding-animations/animationAncherComponent";
 import { animationbuttonComponent } from "../../component/onboarding-animations/animationbuttonComponent";
 import { animationPComponent } from "../../component/onboarding-animations/animationPComponent";
+import SwitchLanguage from "../../component/switch-language";
 const OnboardingPage: React.FC = () => {
   const navigate = useNavigate();
   const [swithTheme, setSwithTheme] = useState(true);
@@ -113,42 +114,8 @@ const OnboardingPage: React.FC = () => {
         </div>
         <div className="right">
           <div className="switches">
-            <button
-              id="ua"
-              style={
-                language === "ua"
-                  ? {
-                      backgroundColor: "#E9FBEF",
-                      color: "#1ED760",
-                    }
-                  : {
-                      backgroundColor: "rgba(0, 0, 0, 0)",
-                      color: swithTheme ? "#000000" : "#ffffff",
-                    }
-              }
-              onClick={() => setLanguage("ua")}
-            >
-              UA
-            </button>
-            <button
-              id="en"
-              style={
-                language === "en"
-                  ? {
-                      backgroundColor: "#E9FBEF",
-                      color: "#1ED760",
-                    }
-                  : {
-                      backgroundColor: "rgba(0, 0, 0, 0)",
-                      color: swithTheme ? "#000000" : "#ffffff",
-                    }
-              }
-              onClick={() => setLanguage("en")}
-            >
-              EN
-            </button>
-
-            <SwitchTheme
+          <SwitchLanguage language={language} setLanguage={setLanguage } swithTheme={swithTheme} />
+          <SwitchTheme
               onChange={() => {
                 setSwithTheme(!swithTheme);
               }}
